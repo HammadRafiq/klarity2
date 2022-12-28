@@ -17,6 +17,7 @@ const CustomButton = ({
     textTransform = "capitalize",
     type = "button",
     disabledStyle = {},
+    svgStyle = {},
     disabled = false,
     onClick = () => null,
     ...rest
@@ -44,7 +45,8 @@ const CustomButton = ({
                 "&:hover": {
                     // backgroundColor: hoverBackground
                 },
-                "&.Mui-disabled": disabledStyle
+                "&.Mui-disabled": disabledStyle,
+                "& svg": svgStyle
             }}
         >
             {title}
