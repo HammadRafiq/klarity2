@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FilterHeader from '../../Components/Filter/FilterHeader'
 import FilterFooter from '../../Components/Filter/FilterFooter'
 import { ReactComponent as GridIcon } from '../../Assets/grid-icon.svg'
@@ -11,6 +11,9 @@ import * as Yup from "yup";
 import EntityTable from '../../Components/Filter/EntityTable'
 import { apiGetRequest } from '../../Helpers'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useAuthContext } from '../../Context/AuthContext'
+import { endpoints } from '../../Config/endpoints'
 
 const validationSchemaAuth = Yup.object({
     first: Yup.string()
@@ -22,36 +25,22 @@ const Filter = () => {
 
     const [data, setData] = useState([])
     const { libraryId } = useParams()
-    const { getToken } = useAuthContext()
 
-    const allRecords = useSelector(state => state.filter.allRecords)
+    // const allRecords = useSelector(state => state.filter.allRecords)
 
     const getEntityTypes = async () => {
-        const { data } = await apiGetRequest(endpoints.libraryOverview, null, { library: libraryId })
+        const { data } = await apiGetRequest(endpoints.getEntityTypes, null, { library: libraryId })
         setData(data)
     }
 
     useEffect(() => {
         getEntityTypes()
-
-        // axios({
-        //     method: 'get',
-        //     url: `${URL.domain}/rest/api/dashboard/getLibraryEntityTypes`,
-        //     params: {
-        //         library: libraryId
-        //     },
-        //     headers: {
-        //         Authorization: `Bearer ${getToken()}`,
-        //     }
-        // }).then(response => {
-        //     setData(response?.data)
-        // })
     }, [])
 
 
     return (
         <Layout>
-            <Box className="filter-main">
+            <Box className="filter-main" sx={{ position: "relative", height: "100%" }} >
                 <Formik
                     initialValues={{
                         globalSearch: ""
@@ -67,7 +56,7 @@ const Filter = () => {
                         <Form>
                             <FilterHeader />
                             <Box sx={{ padding: "30px 40px", backgroundColor: "background.paper" }}>
-                                <Grid container>
+                                <Grid container spacing={2}>
                                     {data?.slice(0, 6)?.map((item, index) => (
                                         <Grid item xs={4}>
                                             <Box sx={{ backgroundColor: "background.default", borderRadius: "4px", minHeight: 230 }}>
@@ -75,7 +64,7 @@ const Filter = () => {
                                                     <Box sx={{ display: "flex", alignItems: "center" }}>
                                                         <GridIcon />
                                                         <Typography variant="subtitle1" sx={{ paddingLeft: "8px" }}>
-                                                            Person
+                                                            {item?.entityType}
                                                         </Typography>
                                                     </Box>
                                                     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -91,12 +80,6 @@ const Filter = () => {
                                             </Box>
                                         </Grid>
                                     ))}
-                                    <Grid item xs={4}>
-                                        item
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        item
-                                    </Grid>
                                 </Grid>
                             </Box>
                             <FilterFooter />

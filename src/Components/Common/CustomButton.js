@@ -1,3 +1,4 @@
+import { LoadingButton } from '@mui/lab'
 import { Button } from '@mui/material'
 import React from 'react'
 
@@ -24,7 +25,7 @@ const CustomButton = ({
     ...rest
 }) => {
     return (
-        <Button
+        <LoadingButton
             onClick={onClick}
             type={type}
             disabled={disabled}
@@ -52,7 +53,7 @@ const CustomButton = ({
             }}
         >
             {title}
-        </Button>
+        </LoadingButton>
     )
 }
 

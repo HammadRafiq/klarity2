@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TextFieldWrapper } from '../Common/TextFieldWrapper'
-import { Box, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { ReactComponent as TrashIcon } from '../../Assets/trash-icon.svg'
 import { ReactComponent as EditIcon } from '../../Assets/edit-icon.svg'
 import CustomButton from '../Common/CustomButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../../Context/AuthContext';
-
-const filters = ["john", "david", "majid"]
+import { GetMetaData, removeDetectedFilter, updateSearchQuery } from '../../Pages/Filter/filterSlice';
 
 const FilterHeader = () => {
     const { libraryId } = useParams()
@@ -42,18 +41,34 @@ const FilterHeader = () => {
     return (
         <Box sx={{ padding: "3px 30px", backgroundColor: "common.white", borderLeft: "1px solid", borderLeftColor: "#DEE2E6", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0px 2px 12px rgba(154, 161, 171, 0.15)" }}>
             <Box sx={{ display: "flex", alignItems: "center", flex: 1, marginRight: "100px" }}>
-                <TextFieldWrapper
-                    name="globalSearch"
-                    placeholder="Search"
-                    marginBottom='9px'
-                    handleKeyDown={handleKeyDown}
+                <TextField
+                    variant='standard'
+                    InputProps={{
+                        disableUnderline: true,
+                        sx: {
+                            border: "1px solid #CED4DA",
+                            borderRadius: "4px",
+                            padding: "5px 15px",
+                            fontSize: "14px",
+                            color: "text.secondary",
+                            width: "auto",
+                            fontWeight: 400,
+                            marginBottom: "9px",
+                            mt: 1
+                        }
+                    }}
+                    name='first'
+                    placeholder='Search'
+                    type="text"
+                    onKeyDown={handleKeyDown}
                 />
+
                 <Box sx={{ border: "1px solid", borderColor: "#CED4DA", borderRadius: "4px", minHeight: "32px", flex: 1, marginLeft: "10px", padding: "4px 15px" }} >
                     {detectedFilters?.length > 0 ?
                         <Box sx={{ display: "flex" }}>
-                            {detectedFilters?.map(filter => (
-                                <Typography variant="body3" sx={{ backgroundColor: "rgba(45, 97, 247, 0.08)", padding: "3px 6px", marginRight: "5px", fontSize: "12px", cursor: "pointer", color: "text.primary" }}>
-                                    {filter}
+                            {detectedFilters?.map(term => (
+                                <Typography variant="body3" sx={{ backgroundColor: "rgba(45, 97, 247, 0.08)", padding: "3px 6px", marginRight: "5px", fontSize: "12px", cursor: "pointer", color: "text.primary" }} onClick={() => dispatch(removeDetectedFilter(term))}>
+                                    {term?.split('#')[1]}
                                 </Typography>
                             ))}
                         </Box> :
@@ -80,3 +95,23 @@ const FilterHeader = () => {
 }
 
 export default FilterHeader
+
+{/* <Col span={12}>
+<div className='keyword-filter-main d-flex align-items-center flex-wrap'>
+    {
+        detectedFilters?.length > 0 ?
+            detectedFilters?.map(term => (
+                <div
+                    className='keyword-item d-flex align-items-center cursor-pointer'
+                    onClick={() => dispatch(removeDetectedFilter(term))}
+                >
+                    <p className='mr-4'>{term?.split('#')[1]}</p>
+                    <CrossIcon />
+                </div>
+            )) :
+            <p className='keyword-item-placeholder'>
+                Keyword filter
+            </p>
+    }
+</div>
+</Col> */}

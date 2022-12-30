@@ -17,7 +17,7 @@ const AppRoutes = () => {
             element: Overview
         },
         {
-            path: "/filter",
+            path: "/filter/:libraryId",
             element: Filter
         },
         {

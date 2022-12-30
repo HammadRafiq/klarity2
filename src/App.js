@@ -6,6 +6,8 @@ import { theme } from './Theme';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
+import { store } from './store';
+import AuthProvider from './Context/AuthContext';
 
 function App() {
 
@@ -16,9 +18,11 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={1}>
-            <Box sx={{ minHeight: "100vh", backgroundColor: "background.paper" }}>
-              <AppRoutes />
-            </Box>
+            <AuthProvider>
+              <Box sx={{ minHeight: "100vh", backgroundColor: "background.paper" }}>
+                <AppRoutes />
+              </Box>
+            </AuthProvider>
           </SnackbarProvider>
         </ThemeProvider>
       </Provider>

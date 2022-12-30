@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-import { URL } from '../../Components/Constants/constants'
 import { endpoints } from '../../Config/endpoints'
-import { useAuthContext } from '../../Context/authContext'
 import { apiPostRequest } from '../../Helpers'
 
 const initialState = {
@@ -37,7 +35,7 @@ export const { addDetectedFilter, removeDetectedFilter, updateAllRecords, update
 export default filterSlice.reducer
 
 export const GetMetaData = (obj) => async (dispatch) => {
-    const { libraryId, query, token, detectedFilters } = obj
+    const { libraryId, query, detectedFilters } = obj
     let payload = {
         "countOnly": 1, // important thing. changes the response. 
         "page": 1,
@@ -53,7 +51,7 @@ export const GetMetaData = (obj) => async (dispatch) => {
         "searchField": ""
     }
     const { data } = await apiPostRequest(endpoints.getTableData, payload)
-    dispatch(updateAllRecords(response?.data))
+    dispatch(updateAllRecords(data))
 
     // axios({
     //     method: 'post',

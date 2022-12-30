@@ -1,11 +1,12 @@
 import { Box, Button, Grid, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { ReactComponent as KlarityIcon } from '../../Assets/klarity_logo.svg'
 import { ReactComponent as SettingsIcon } from '../../Assets/admin-settings.svg'
 import { ReactComponent as UploadIcon } from '../../Assets/upload-icon.svg'
 import LibraryItem from '../../Components/Overview/LibraryItem'
 import { apiGetRequest } from '../../Helpers'
 import { endpoints } from '../../Config/endpoints'
+import { useQuery } from '@tanstack/react-query'
 
 // In order for Grid Spacing to work:
 // 1. dont use sx on both container and item grid
@@ -91,28 +92,28 @@ const Overview = () => {
   const [search, setSearch] = useState("")
 
   const rerender = useCallback(() => {
-    setPagination(pagination => ({
-      ...pagination
-    }))
+    // setPagination(pagination => ({
+    //   ...pagination
+    // }))
   }, [])
 
   // START: REACT QUERY //
   const getLibraryData = async ({ queryKey }) => {
     let data = {
-      page: queryKey[1],
+      page: 1,
       maxResults: 10,
-      search: queryKey[2]
+      search: ""
     }
     return apiGetRequest(endpoints.libraryOverview, null, data)
   }
-  const { data, isLoading, error } = useQuery(["overview", pagination?.page, search], getLibraryData)
+  const { data, isLoading, error } = useQuery(["overview", search], getLibraryData)
   //END: REACT QUERY //
 
   const handleSearch = (e) => {
-    setPagination({
-      ...pagination,
-      page: 1
-    })
+    // setPagination({
+    //   ...pagination,
+    //   page: 1
+    // })
     setSearch(e.target.value)
   }
 
@@ -208,7 +209,7 @@ const Overview = () => {
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <Box height="100%" sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px" }}>
+            <Box height="100%" sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px", minHeight: "198px" }}>
               <label style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
                 <input
                   style={{ display: "none" }}
