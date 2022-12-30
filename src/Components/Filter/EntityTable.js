@@ -5,11 +5,10 @@ import { apiGetRequest, apiPostRequest } from "../../Helpers";
 import { endpoints } from "../../Config/endpoints";
 import { useTableData } from "../../Hooks/useTableData";
 
-const EntityTable = () => {
+const EntityTable = ({ libraryId, item, className }) => {
 
     const columns = React.useMemo(
         () => [
-            //Geeting Dynamic Data From Mock Data
             {
                 accessorFn: (row) => row.term,
                 id: "term",
@@ -37,9 +36,9 @@ const EntityTable = () => {
             maxResults: limit,
             page: currentPage,
             isOr: 0,
-            library: "4c054a0b-714f-49dc-b7ed-204305f4b542",
+            library: libraryId,
             tableSearchTerm: "",
-            entityType: "COM"
+            entityType: item?.shortCut
         }
         return apiPostRequest(
             endpoints.getTableData,

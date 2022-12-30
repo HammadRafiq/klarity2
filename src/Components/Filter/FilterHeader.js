@@ -4,10 +4,41 @@ import { Box, Typography } from "@mui/material";
 import { ReactComponent as TrashIcon } from '../../Assets/trash-icon.svg'
 import { ReactComponent as EditIcon } from '../../Assets/edit-icon.svg'
 import CustomButton from '../Common/CustomButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useAuthContext } from '../../Context/AuthContext';
 
 const filters = ["john", "david", "majid"]
 
 const FilterHeader = () => {
+    const { libraryId } = useParams()
+    const { getToken } = useAuthContext()
+    const detectedFilters = useSelector(state => state.filter.detectedFilters)
+    const topSearchQuery = useSelector(state => state.filter.topSearchQuery)
+    const dispatch = useDispatch()
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            dispatch(updateSearchQuery(e.target.value))
+            dispatch(GetMetaData({
+                libraryId: libraryId,
+                query: e.target.value,
+                token: getToken(),
+                detectedFilters: detectedFilters
+            }))
+        }
+    }
+
+    useEffect(() => {
+        dispatch(GetMetaData({
+            libraryId: libraryId,
+            query: topSearchQuery,
+            token: getToken(),
+            detectedFilters: detectedFilters
+        }))
+    }, [detectedFilters])
+
+
     return (
         <Box sx={{ padding: "3px 30px", backgroundColor: "common.white", borderLeft: "1px solid", borderLeftColor: "#DEE2E6", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0px 2px 12px rgba(154, 161, 171, 0.15)" }}>
             <Box sx={{ display: "flex", alignItems: "center", flex: 1, marginRight: "100px" }}>
@@ -15,17 +46,18 @@ const FilterHeader = () => {
                     name="globalSearch"
                     placeholder="Search"
                     marginBottom='9px'
+                    handleKeyDown={handleKeyDown}
                 />
                 <Box sx={{ border: "1px solid", borderColor: "#CED4DA", borderRadius: "4px", minHeight: "32px", flex: 1, marginLeft: "10px", padding: "4px 15px" }} >
-                    {filters?.length > 0 ?
-                        <Box sx={{display: "flex"}}>
-                            {filters?.map(filter => (
-                                <Typography variant="body3" sx={{backgroundColor: "rgba(45, 97, 247, 0.08)", padding: "3px 6px", marginRight: "5px", fontSize: "12px", cursor: "pointer", color: "text.primary"}}>
+                    {detectedFilters?.length > 0 ?
+                        <Box sx={{ display: "flex" }}>
+                            {detectedFilters?.map(filter => (
+                                <Typography variant="body3" sx={{ backgroundColor: "rgba(45, 97, 247, 0.08)", padding: "3px 6px", marginRight: "5px", fontSize: "12px", cursor: "pointer", color: "text.primary" }}>
                                     {filter}
                                 </Typography>
                             ))}
                         </Box> :
-                        <Typography variant='body3' sx={{padding: "2px 0"}}>
+                        <Typography variant='body3' sx={{ padding: "2px 0" }}>
                             Select filters from the table
                         </Typography>
                     }

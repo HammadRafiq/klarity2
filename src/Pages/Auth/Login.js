@@ -5,14 +5,78 @@ import React from 'react'
 import { TextFieldWrapper } from '../../Components/Common/TextFieldWrapper'
 import LoginImage from '../../Assets/login_img.png'
 import CustomButton from '../../Components/Common/CustomButton'
+import { apiPostRequest } from '../../Helpers'
+import { endpoints } from '../../Config/endpoints'
+import { useNavigate } from 'react-router-dom'
+import { useSnackbar } from 'notistack'
 
 const Login = () => {
+
+    const [loading, setLoading] = useState(false)
+    const [companies, setCompanies] = useState([])
+    const navigate = useNavigate()
+    const { enqueueSnackbar } = useSnackbar();
+
+    const { login } = useAuthContext()
+
+    const onFinish = async (input) => {
+        setLoading(true)
+        let message = null;
+        // axios({
+        //     method: 'post',
+        //     url: `${URL.domain}/rest/api/getAccessToken`,
+        //     data: input,
+        // }).then(response => {
+        //     login(response?.data?.token)
+        //     navigate('/overview')
+        // }).catch(error => {
+        //     message.error(error?.message)
+        // }).then(() => {
+        //     setLoading(false)
+        // })
+
+        try {
+            const res = await apiPostRequest(
+                endpoints.getAccessToken,
+                input
+            );
+            const { data, status } = res;
+            switch (status) {
+                case 201:
+                        login(data?.token)
+                        navigate('/overview')
+                    break;
+                default:
+                    message = data?.message || "Something Went Wrong";
+                    enqueueSnackbar(message, {
+                        variant: "error",
+                    });
+                    break;
+            }
+        } catch (error) {
+            message = error;
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        axios.get(`${URL.domain}/rest/api/getLoginCompanies`, {
+        }).then(response => {
+            setCompanies(response?.data?.companies)
+        }).catch(error => {
+            console.log(error)
+        })
+    }, [])
+
+
     return (
         <Box>
             <Formik
                 initialValues={{
                     username: ""
                 }}
+                onSubmit={onFinish}
             >
                 <Grid container>
                     <Grid xs={6} sx={{
@@ -61,6 +125,7 @@ const Login = () => {
                                 <CustomButton
                                     title='Login'
                                     type="submit"
+                                    loading={loading}
                                 />
                             </Box>
                         </Box>

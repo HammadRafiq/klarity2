@@ -9,6 +9,8 @@ import Layout from '../../Layout'
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import EntityTable from '../../Components/Filter/EntityTable'
+import { apiGetRequest } from '../../Helpers'
+import { useSelector } from 'react-redux'
 
 const validationSchemaAuth = Yup.object({
     first: Yup.string()
@@ -17,6 +19,36 @@ const validationSchemaAuth = Yup.object({
 
 
 const Filter = () => {
+
+    const [data, setData] = useState([])
+    const { libraryId } = useParams()
+    const { getToken } = useAuthContext()
+
+    const allRecords = useSelector(state => state.filter.allRecords)
+
+    const getEntityTypes = async () => {
+        const { data } = await apiGetRequest(endpoints.libraryOverview, null, { library: libraryId })
+        setData(data)
+    }
+
+    useEffect(() => {
+        getEntityTypes()
+
+        // axios({
+        //     method: 'get',
+        //     url: `${URL.domain}/rest/api/dashboard/getLibraryEntityTypes`,
+        //     params: {
+        //         library: libraryId
+        //     },
+        //     headers: {
+        //         Authorization: `Bearer ${getToken()}`,
+        //     }
+        // }).then(response => {
+        //     setData(response?.data)
+        // })
+    }, [])
+
+
     return (
         <Layout>
             <Box className="filter-main">
@@ -33,27 +65,32 @@ const Filter = () => {
                 >
                     {() => (
                         <Form>
-
                             <FilterHeader />
-                            <Box sx={{ padding: "30px 40px", backgroundColor: "background.paper"}}>
+                            <Box sx={{ padding: "30px 40px", backgroundColor: "background.paper" }}>
                                 <Grid container>
-                                    <Grid item xs={4}>
-                                        <Box sx={{ backgroundColor: "background.default", borderRadius: "4px", minHeight: 230 }}>
-                                            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px", borderBottom: "1px solid #DEE2E6"}}>
-                                                <Box sx={{ display: "flex", alignItems: "center" }}>
-                                                    <GridIcon />
-                                                    <Typography variant="subtitle1" sx={{paddingLeft: "8px"}}>
-                                                        Person
-                                                    </Typography>
+                                    {data?.slice(0, 6)?.map((item, index) => (
+                                        <Grid item xs={4}>
+                                            <Box sx={{ backgroundColor: "background.default", borderRadius: "4px", minHeight: 230 }}>
+                                                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px", borderBottom: "1px solid #DEE2E6" }}>
+                                                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                                                        <GridIcon />
+                                                        <Typography variant="subtitle1" sx={{ paddingLeft: "8px" }}>
+                                                            Person
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                                                        <DownloadIcon style={{ marginRight: "10px" }} />
+                                                        <TrashIcon />
+                                                    </Box>
                                                 </Box>
-                                                <Box sx={{display:  "flex", alignItems: "center"}}>
-                                                    <DownloadIcon style={{marginRight: "10px"}} />
-                                                    <TrashIcon />
-                                                </Box>
+                                                <EntityTable
+                                                    libraryId={libraryId}
+                                                    key={index}
+                                                    item={item}
+                                                />
                                             </Box>
-                                            <EntityTable />
-                                        </Box>
-                                    </Grid>
+                                        </Grid>
+                                    ))}
                                     <Grid item xs={4}>
                                         item
                                     </Grid>

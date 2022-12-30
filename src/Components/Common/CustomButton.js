@@ -19,6 +19,7 @@ const CustomButton = ({
     disabledStyle = {},
     svgStyle = {},
     disabled = false,
+    loading = false,
     onClick = () => null,
     ...rest
 }) => {
@@ -27,6 +28,7 @@ const CustomButton = ({
             onClick={onClick}
             type={type}
             disabled={disabled}
+            loading={loading}
             sx={{
                 "&, &:hover": {
                     color: color,

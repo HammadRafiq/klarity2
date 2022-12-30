@@ -20,10 +20,17 @@ export const TextFieldWrapper = ({
   width = "auto",
   fontWeight = 400,
   marginBottom = "0px",
+  handleKeyDown,
   ...props
 }) => {
   const [field, meta] = useField(props);
   const [showPassword, setShowPassword] = useState(false);
+
+  const onKeyDown = (e) => {
+    if(handleKeyDown){
+      handleKeyDown(e)
+    }
+  }
 
   const commonInputProps = {
     disableUnderline: true,
@@ -58,6 +65,7 @@ export const TextFieldWrapper = ({
         size={props.size}
         disabled={props.disabled}
         type={showPassword ? "text" : type}
+        onKeyDown={onKeyDown}
         InputProps={
           props.startIcon ? {
             ...commonInputProps,
