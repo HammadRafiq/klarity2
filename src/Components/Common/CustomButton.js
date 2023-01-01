@@ -1,3 +1,4 @@
+import { LoadingButton } from '@mui/lab'
 import { Button } from '@mui/material'
 import React from 'react'
 
@@ -19,14 +20,16 @@ const CustomButton = ({
     disabledStyle = {},
     svgStyle = {},
     disabled = false,
+    loading = false,
     onClick = () => null,
     ...rest
 }) => {
     return (
-        <Button
+        <LoadingButton
             onClick={onClick}
             type={type}
             disabled={disabled}
+            loading={loading}
             sx={{
                 "&, &:hover": {
                     color: color,
@@ -50,7 +53,7 @@ const CustomButton = ({
             }}
         >
             {title}
-        </Button>
+        </LoadingButton>
     )
 }
 

@@ -50,12 +50,12 @@ const CustomTable = (props) => {
     });
 
     if (isLoading) return (
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: 200, padding: "0 30px" }}>
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: 195, padding: "0 30px" }}>
             <Box sx={{ flex: 1 }} >
-                <Skeleton height={40} animation="wave" />
-                <Skeleton height={40} animation="wave" />
-                <Skeleton height={40} animation="wave" />
-                <Skeleton height={40} animation="wave" />
+                <Skeleton height={30} animation="wave" />
+                <Skeleton height={30} animation="wave" />
+                <Skeleton height={30} animation="wave" />
+                <Skeleton height={30} animation="wave" />
             </Box>
         </Box>
     )

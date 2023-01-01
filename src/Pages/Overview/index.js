@@ -1,9 +1,12 @@
 import { Box, Button, Grid, Paper, Typography } from '@mui/material'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { ReactComponent as KlarityIcon } from '../../Assets/klarity_logo.svg'
 import { ReactComponent as SettingsIcon } from '../../Assets/admin-settings.svg'
 import { ReactComponent as UploadIcon } from '../../Assets/upload-icon.svg'
 import LibraryItem from '../../Components/Overview/LibraryItem'
+import { apiGetRequest } from '../../Helpers'
+import { endpoints } from '../../Config/endpoints'
+import { useQuery } from '@tanstack/react-query'
 
 // In order for Grid Spacing to work:
 // 1. dont use sx on both container and item grid
@@ -83,10 +86,38 @@ const libraryData = [
     firstIndexDate: "15.05.2022",
     lastIndexDate: "15.05.2022"
   },
-
 ]
 
 const Overview = () => {
+  const [search, setSearch] = useState("")
+
+  const rerender = useCallback(() => {
+    // setPagination(pagination => ({
+    //   ...pagination
+    // }))
+  }, [])
+
+  // START: REACT QUERY //
+  const getLibraryData = async ({ queryKey }) => {
+    let data = {
+      page: 1,
+      maxResults: 10,
+      search: ""
+    }
+    return apiGetRequest(endpoints.libraryOverview, null, data)
+  }
+  const { data, isLoading, error } = useQuery(["overview", search], getLibraryData)
+  //END: REACT QUERY //
+
+  const handleSearch = (e) => {
+    // setPagination({
+    //   ...pagination,
+    //   page: 1
+    // })
+    setSearch(e.target.value)
+  }
+
+
   return (
     <Box>
       <Box sx={{
@@ -124,7 +155,7 @@ const Overview = () => {
           </Box>
         </Box>
       </Box>
-      <Box sx={{ padding: "10px 50px"}}> {/* Background contatiner minHeight: "calc(100vh - 49px)"  */}
+      <Box sx={{ padding: "10px 50px" }}> {/* Background contatiner minHeight: "calc(100vh - 49px)"  */}
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#34495E", color: "common.white", borderRadius: "4px", padding: "15px 80px 15px 30px" }}> {/* Overview inner header */}
           <Box>
             <Typography variant='h1'>
@@ -178,8 +209,8 @@ const Overview = () => {
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={3}>
-            <Box height="100%" sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px"}}>
-              <label style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer"}}>
+            <Box height="100%" sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px", minHeight: "198px" }}>
+              <label style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
                 <input
                   style={{ display: "none" }}
                   type="file"
@@ -192,7 +223,7 @@ const Overview = () => {
               </label>
             </Box>
           </Grid>
-          {libraryData?.map((obj, index) => (
+          {data?.data?.values?.map((obj, index) => (
             <LibraryItem key={index} obj={obj} />
           ))
           }

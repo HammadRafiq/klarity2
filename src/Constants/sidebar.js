@@ -10,23 +10,28 @@ import { ReactComponent as FilesIcon } from '../Assets/all-files.svg'
 export const sidebarConstants = [
     {
         title: "Dashboard",
-        icon: <DashboardIcon />
+        icon: <DashboardIcon />,
+        linkRef: "dashboard"
     },
     {
         title: "Search",
-        icon: <SearchIcon/>
+        icon: <SearchIcon/>,
+        linkRef: "dashboard"
     },
     {
-        title: "Filters",
-        icon: <FiltersIcon/>
+        title: "Filter",
+        icon: <FiltersIcon/>,
+        linkRef: "dashboard"
     },
     {
         title: "Topic modelling",
-        icon: <TopicIcon/>
+        icon: <TopicIcon/>,
+        linkRef: "dashboard"
     },
     {
         title: "Review",
-        icon: <ReviewIcon/>
+        icon: <ReviewIcon/>,
+        linkRef: "dashboard"
     },
     {
         title: "ivis",

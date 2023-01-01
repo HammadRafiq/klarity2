@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Grid, Paper, Typography } from '@mui/material'
 import { ReactComponent as PuzzleIcon } from '../../Assets/puzzle-icon.svg'
 import { ReactComponent as VerticalDots } from '../../Assets/vertical-dots.svg'
+import { useNavigate } from 'react-router-dom'
 
 
 const dataMap = {
@@ -18,20 +19,26 @@ const dataMap = {
     problems: "Problems"
 }
 
-
 const LibraryItem = ({ obj }) => {
+
+    const navigate = useNavigate()
+
+    const libraryHandler = () => {
+        navigate(`/filter/${obj.indexname}`)
+    }    
+
     return (
         <Grid xs={3} item>
-            <Paper sx={{ backgroundColor: "common.white", padding: "15px" }}>
+            <Paper sx={{ backgroundColor: "common.white", padding: "15px", cursor: "pointer" }} onClick={libraryHandler} >
                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "10px", marginBottom: "10px", borderBottom: "1px solid #DEE2E6" }}>
                     <Box sx={{ display: "flex" }}>
                         <PuzzleIcon />
                         <Box sx={{ marginLeft: "10px" }}>
                             <Typography variant='subtitle1'>
-                                Companytone
+                                {obj.displayName}
                             </Typography>
                             <Typography variant='body2' sx={{ color: "text.secondary" }}>
-                                Docs: 349/377
+                                Docs: 7/37
                             </Typography>
                         </Box>
                     </Box>
@@ -40,18 +47,20 @@ const LibraryItem = ({ obj }) => {
                     </Box>
                 </Box>
                 <Grid container columnSpacing={2}>
-                    {Object.entries(obj)?.map((item, index) => (
-                        <Grid item xs={6}>
-                            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <Typography variant='body2'>
-                                    {dataMap[item[0]] ?? item[0]}
-                                </Typography>
-                                <Typography variant='body1'>
-                                    {item[1]}
-                                </Typography>
-                            </Box>
-                        </Grid>
-                    ))
+                    {Object.entries(obj)?.map((item, index) => {
+                        return dataMap[item[0]] && (
+                            <Grid item xs={6}>
+                                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <Typography variant='body2'>
+                                        {dataMap[item[0]] ?? item[0]}
+                                    </Typography>
+                                    <Typography variant='body1'>
+                                        {item[1]}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                        )
+                    })
                     }
                 </Grid>
             </Paper>
@@ -60,3 +69,5 @@ const LibraryItem = ({ obj }) => {
 }
 
 export default LibraryItem
+
+// dataMap[item[0]]

@@ -8,7 +8,11 @@ import { ReactComponent as ArrowBack } from '../Assets/arrow-back.svg'
 import { sidebarConstants } from '../Constants/sidebar'
 import { useLocation } from 'react-router-dom'
 
+
 const Layout = ({children}) => {
+
+    const location = useLocation();
+    console.log("location.pathname: ", location?.pathname.includes("Filter".toLowerCase()))
 
     return (
         <Box sx={{ display: "flex" }}>
@@ -29,7 +33,7 @@ const Layout = ({children}) => {
                     <Box>
                         {
                             sidebarConstants?.map(item => (
-                                <Box sx={{ display: "flex", marginBottom: "4px", padding: "4px 8px", borderRadius: "4px", cursor: "pointer" }}>
+                                <Box className={location?.pathname?.includes(item?.title?.toLowerCase()) && "active-menu-item"} sx={{ display: "flex", marginBottom: "4px", padding: "4px 8px", borderRadius: "4px", cursor: "pointer"}}>
                                     <Box sx={{ width: "30px" }}>
                                         {item.icon}
                                     </Box>

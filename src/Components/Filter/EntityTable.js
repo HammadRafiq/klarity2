@@ -4,16 +4,29 @@ import CustomTable from "../Filter/CustomTable";
 import { apiGetRequest, apiPostRequest } from "../../Helpers";
 import { endpoints } from "../../Config/endpoints";
 import { useTableData } from "../../Hooks/useTableData";
+import { Box } from "@mui/material";
+import { addDetectedFilter } from "../../Pages/Filter/filterSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const EntityTable = () => {
+const EntityTable = ({ libraryId, item, className }) => {
+
+    const dispatch = useDispatch()
+    const detectedFilters = useSelector(state => state.filter.detectedFilters)
 
     const columns = React.useMemo(
         () => [
-            //Geeting Dynamic Data From Mock Data
             {
                 accessorFn: (row) => row.term,
                 id: "term",
-                cell: (info) => info.getValue(),
+                cell: (info) => (
+                    <Box sx={{ cursor: "pointer" }} onClick={() => dispatch(addDetectedFilter({
+                        term: info.getValue(),
+                        entityType: item?.shortCut
+                    }))}
+                    >
+                        {info.getValue()}
+                    </Box>
+                ),
                 header: () => <div>Name</div>,
             },
             {
@@ -37,9 +50,10 @@ const EntityTable = () => {
             maxResults: limit,
             page: currentPage,
             isOr: 0,
-            library: "4c054a0b-714f-49dc-b7ed-204305f4b542",
+            library: libraryId,
             tableSearchTerm: "",
-            entityType: "COM"
+            entityType: item?.shortCut,
+            detectedFilter: detectedFilters
         }
         return apiPostRequest(
             endpoints.getTableData,
@@ -49,7 +63,7 @@ const EntityTable = () => {
 
     const querydata = useMemo(() => {
         return {
-            key: "mytable",
+            key: `filterTable-${item?.shortCut}`,
             apiFunc: res,
         }
     }, [])
