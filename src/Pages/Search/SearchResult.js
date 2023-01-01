@@ -56,10 +56,10 @@ const SearchResult = () => {
                                 padding="4px 5px"
                                 minWidth="auto"
                                 height="auto"
-                                backgroundColor={activeView === "list" ? "#D955C3" : "background.default"}
-                                border="1px solid"
-                                borderColor={activeView === "list" ? "#D955C3" : "#C1C7D0"}
                                 title={<ListViewIcon />}
+                                border="1px solid"
+                                backgroundColor={activeView === "list" ? "#D955C3" : "background.default"}
+                                borderColor={activeView === "list" ? "#D955C3" : "#C1C7D0"}
                                 onClick={() => setActiveView("list")}
                                 svgStyle={activeView === "list" && {
                                     path: {

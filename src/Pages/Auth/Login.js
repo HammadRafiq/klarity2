@@ -7,11 +7,16 @@ import LoginImage from '../../Assets/login_img.png'
 import CustomButton from '../../Components/Common/CustomButton'
 
 const Login = () => {
+
+    
+
     return (
         <Box>
             <Formik
                 initialValues={{
-                    username: ""
+                    username: "",
+                    password: "",
+                    companyId: ""
                 }}
             >
                 <Grid container>
