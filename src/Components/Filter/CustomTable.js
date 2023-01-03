@@ -118,32 +118,42 @@ const CustomTable = (props) => {
                                 )}
                             </Table>
                             {(isError || table.getRowModel().rows.length === 0) && (
-                                <Grid
-                                    container
-                                    alignItems={"center"}
-                                    justifyContent={"center"}
-                                    padding={5}
-                                >
-                                    <Grid item>
-                                        <Box width={200}>
+                                // <Grid
+                                //     container
+                                //     alignItems={"center"}
+                                //     justifyContent={"center"}
+                                //     padding={5}
+                                // >
+                                //     <Grid item>
+                                //         <Box width={200}>
+                                //             <NoContentFound /><br/>
+                                //             No content found
+                                //         </Box>
+                                //     </Grid>
+                                // </Grid>
+                                <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", marginTop: "40px"}}>
+                                    <Box sx={{textAlign: "center"}}>
+                                        <Box>
                                             <NoContentFound />
-                                            No content found
                                         </Box>
-                                    </Grid>
-                                </Grid>
+                                        <Typography variant="body1" sx={{marginTop: "8px"}}>
+                                            No data available in table
+                                        </Typography>
+                                    </Box>
+                                </Box>
                             )}
                         </TableContainer>
                     </Box>
                     <Grid container boxShadow="0px 0px 35px rgba(154, 161, 171, 0.15)">
                         <Grid xs={12} item>
                             {isSuccess && Boolean(table?.getRowModel()?.rows?.length) && (
-                                <Box sx={{ display: "flex", my: "10px", px: "15px"}}>
+                                <Box sx={{ display: "flex", my: "10px", px: "15px" }}>
                                     <Box>
                                         <Typography
                                             variant="body2"
                                         >
                                             {limit * (currentPage - 1) + 1}-{currentPage === count ?
-                                            (limit * (currentPage - 1) + res?.recordsFiltered) : (limit * currentPage)}/{res?.recordsTotal}
+                                                (limit * (currentPage - 1) + res?.recordsFiltered) : (limit * currentPage)}/{res?.recordsTotal}
                                         </Typography>
                                     </Box>
                                     <Box sx={{ marginLeft: "auto" }}>

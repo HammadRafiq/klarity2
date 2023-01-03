@@ -6,13 +6,14 @@ import { ReactComponent as GraphIcon } from '../Assets/graph.svg'
 import { ReactComponent as SettingsIcon } from '../Assets/admin-settings.svg'
 import { ReactComponent as ArrowBack } from '../Assets/arrow-back.svg'
 import { sidebarConstants } from '../Constants/sidebar'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
 
     const location = useLocation();
-    console.log("location.pathname: ", location?.pathname.includes("Filter".toLowerCase()))
+    const navigate = useNavigate()
+    const { libraryId } = useParams()
 
     return (
         <Box sx={{ display: "flex" }}>
@@ -32,16 +33,30 @@ const Layout = ({children}) => {
                     </Box>
                     <Box>
                         {
-                            sidebarConstants?.map(item => (
-                                <Box className={location?.pathname?.includes(item?.title?.toLowerCase()) && "active-menu-item"} sx={{ display: "flex", marginBottom: "4px", padding: "4px 8px", borderRadius: "4px", cursor: "pointer"}}>
-                                    <Box sx={{ width: "30px" }}>
-                                        {item.icon}
+                            sidebarConstants?.map(item => {
+                                let isActiveMenu = location?.pathname?.includes(item?.title?.toLowerCase())
+                                let link = item?.libraryVariable ? `${item.link}/${libraryId}` : item.link
+                                return (
+                                    <Box
+                                        sx={{ display: "flex", marginBottom: "4px", padding: "6px 8px 4px 8px", borderRadius: "4px", cursor: "pointer", backgroundColor: isActiveMenu && "background.dark" }}
+                                        onClick={() => navigate(link)}
+                                    >
+                                        <Box sx={{
+                                            width: "30px",
+                                            "& svg": {
+                                                path: {
+                                                    fill: isActiveMenu && "#fff"
+                                                }
+                                            }
+                                        }}>
+                                            {item.icon}
+                                        </Box>
+                                        <Typography variant="body3" sx={{ color: isActiveMenu ? "text.white" : "text.primary" }}>
+                                            {item.title}
+                                        </Typography>
                                     </Box>
-                                    <Typography variant="body3" sx={{ color: "text.primary" }}>
-                                        {item.title}
-                                    </Typography>
-                                </Box>
-                            ))
+                                )
+                            })
                         }
                     </Box>
                 </Box>
@@ -62,7 +77,9 @@ const Layout = ({children}) => {
                             Admin Settings
                         </Typography>
                     </Box>
-                    <Box sx={{ display: "flex", marginBottom: "4px", marginTop: "10px", padding: "4px 8px", borderRadius: "4px", cursor: "pointer" }}>
+                    <Box sx={{ display: "flex", marginBottom: "4px", marginTop: "10px", padding: "4px 8px", borderRadius: "4px", cursor: "pointer" }}
+                        onClick={() => navigate("/overview")}
+                    >
                         <Box sx={{ width: "30px" }}>
                             <ArrowBack />
                         </Box>
@@ -89,7 +106,7 @@ const Layout = ({children}) => {
                     </Box>
                 </Box>
             </Box>
-            <Box sx={{ flex: 1 }}>
+            <Box sx={{ flex: 1, height: "100vh", overflowY: "scroll" }}>
                 {children}
             </Box>
         </Box>

@@ -21,7 +21,7 @@ const AppRoutes = () => {
             element: Filter
         },
         {
-            path: "/search",
+            path: "/search/:libraryId",
             element: Search
         },
         {

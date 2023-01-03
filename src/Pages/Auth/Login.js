@@ -19,17 +19,15 @@ const Login = () => {
     const [companies, setCompanies] = useState([])
     const navigate = useNavigate()
     const { enqueueSnackbar } = useSnackbar();
-
     const { login } = useAuthContext()
 
     const onFinish = async (input) => {
-        input.companyID = ""
+        console.log("input: ", input)
         setLoading(true)
         apiPostRequest(
             endpoints.getAccessToken,
             input
         ).then(response => {
-            console.log("response: ", response)
             if (response?.data?.status !== "ERROR") {
                 login(response?.data?.token)
                 navigate('/overview')
@@ -45,14 +43,14 @@ const Login = () => {
         })
     }
 
-    useEffect(() => {
-        axios.get(`${URL.domain}/rest/api/getLoginCompanies`, {
-        }).then(response => {
-            setCompanies(response?.data?.companies)
-        }).catch(error => {
-            console.log(error)
-        })
-    }, [])
+    // useEffect(() => {
+    //     axios.get(`${URL.domain}/rest/api/getLoginCompanies`, {
+    //     }).then(response => {
+    //         setCompanies(response?.data?.companies)
+    //     }).catch(error => {
+    //         console.log(error)
+    //     })
+    // }, [])
 
 
     return (
