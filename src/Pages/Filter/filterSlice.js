@@ -6,7 +6,10 @@ import { apiPostRequest } from '../../Helpers'
 
 const initialState = {
     detectedFilters: [],
-    allRecords: {},
+    allRecords: {
+        foundResults: 0,
+        totalDocuments: 0
+    },
     topSearchQuery: ""
 }
 

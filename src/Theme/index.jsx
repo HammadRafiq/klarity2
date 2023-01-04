@@ -16,13 +16,15 @@ export const theme = createTheme({
         text: {
             primary: "#122841",
             secondary: "#7B8794",
+            white: "#fff",
             disabled: "#D955C3",
             primaryChannel: "#D955C3",
             secondaryChannel: "#D955C3"
         },
         background: {
             paper: "#F5F5F5",
-            default: "#FFF"
+            default: "#FFF",
+            dark: "#34495E"
         },
         grey: {
             100: "#DEE2E6",
@@ -37,6 +39,10 @@ export const theme = createTheme({
         },
         h2: {
             fontSize: "20px",
+            fontWeight: 700,            
+        },
+        h3: {
+            fontSize: "12px",
             fontWeight: 700,            
         },
         subtitle1: {

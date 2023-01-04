@@ -1,10 +1,11 @@
 import { Box, Typography } from '@mui/material'
 import CustomButton from '../../Components/Common/CustomButton'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const FilterFooter = () => {
-
     
+    const allRecords = useSelector(state => state.filter.allRecords)
 
     return (
         <Box sx={{ backgroundColor: "background.default", position: "absolute", bottom: "0", left: "0", width: "100%" }}>
@@ -14,7 +15,7 @@ const FilterFooter = () => {
                         Result:
                     </Typography>
                     <Typography variant='subtitle2'>
-                        345/345
+                        {allRecords?.foundResults}/{allRecords?.totalDocuments}
                     </Typography>
                 </Box>
                 <CustomButton

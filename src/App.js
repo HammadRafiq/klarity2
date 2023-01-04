@@ -8,10 +8,11 @@ import { SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import AuthProvider from './Context/AuthContext';
+import "./_App.scss"
 
 function App() {
 
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient() 
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -19,7 +20,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <SnackbarProvider maxSnack={1}>
             <AuthProvider>
-              <Box sx={{ minHeight: "100vh", backgroundColor: "background.paper" }}>
+              <Box sx={{ height: "100vh", backgroundColor: "background.paper" }}>
                 <AppRoutes />
               </Box>
             </AuthProvider>

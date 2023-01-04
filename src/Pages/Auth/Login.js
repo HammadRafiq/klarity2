@@ -24,13 +24,12 @@ const Login = () => {
 
     // Once the submit button is clicked, call the login API and navigate the user to the Overview page if the provided credentials are valid
     const onFinish = async (input) => {
-        input.companyID = ""
+        console.log("input: ", input)
         setLoading(true)
         apiPostRequest(
             endpoints.getAccessToken,
             input
         ).then(response => {
-            console.log("response: ", response)
             if (response?.data?.status !== "ERROR") {
                 login(response?.data?.token)
                 navigate('/overview')
@@ -71,7 +70,9 @@ const Login = () => {
             </Box>
             <Formik // Formik library is being used to handle the forms. All the validations implemented on the input fields (e.g required input) is done using Formik. 
                 initialValues={{
-                    username: ""
+                    username: "",
+                    password: "",
+                    companyId: ""
                 }}
                 onSubmit={onFinish} // Function called once user clicks submit button, onSubmit will only run when all the input fields are valid. (For example if username is required and user leaves username field empty, onFinish function wont be called and hence the login API wont be called unless fields are valid)
             >

@@ -11,38 +11,43 @@ export const sidebarConstants = [
     {
         title: "Dashboard",
         icon: <DashboardIcon />,
-        linkRef: "dashboard"
+        link: "#",
     },
     {
         title: "Search",
         icon: <SearchIcon/>,
-        linkRef: "dashboard"
+        link: "/search",
+        libraryVariable: true
     },
     {
         title: "Filter",
         icon: <FiltersIcon/>,
-        linkRef: "dashboard"
+        link: "/filter",
+        libraryVariable: true
     },
     {
         title: "Topic modelling",
         icon: <TopicIcon/>,
-        linkRef: "dashboard"
+        link: "#"
     },
     {
         title: "Review",
         icon: <ReviewIcon/>,
-        linkRef: "dashboard"
+        link: "#"
     },
     {
         title: "ivis",
-        icon: <IvisIcon/>
+        icon: <IvisIcon/>,
+        link: "#"
     },
     {
         title: "Ai+iQ",
-        icon: <LightbulbIcon/>
+        icon: <LightbulbIcon/>,
+        link: "#"
     },
     {
         title: "All files",
-        icon: <FilesIcon/>
+        icon: <FilesIcon/>,
+        link: "#"
     },
 ]

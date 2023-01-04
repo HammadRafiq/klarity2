@@ -56,7 +56,7 @@ const Filter = () => {
                                 <Grid container spacing={2}>
                                     {data?.slice(0, 6)?.map((item, index) => (
                                         <Grid item xs={4}>
-                                            <Box sx={{ backgroundColor: "background.default", borderRadius: "4px", minHeight: 230 }}>
+                                            <Box sx={{ backgroundColor: "background.default", borderRadius: "4px", minHeight: 240 }}>
                                                 <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px", borderBottom: "1px solid #DEE2E6" }}>
                                                     <Box sx={{ display: "flex", alignItems: "center" }}>
                                                         <GridIcon />
