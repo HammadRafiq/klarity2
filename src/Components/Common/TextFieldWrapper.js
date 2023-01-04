@@ -1,11 +1,17 @@
 import { FC, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { ErrorMessage, useField } from "formik";
-// import infoerror from "src/assets/register/infoerror.svg";
 import { Box } from "@mui/system";
 import { IconButton, InputAdornment, Typography } from "@mui/material";
-// import "./Inputs.scss";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+/* Whenever an input field is needed, we make use of this Common Text Field Component
+ * TextFieldWrapper by default has the same styling as the most used input field of our app
+ * If a Text Field is required with different styling or functionality, we pass the changings props while calling this component to meet our Text Field style needs
+ * For example, when we need an input field for password, we simply pass type="password" while calling this component and rest of the logic and functionality is handled in this common component. Everytime we need a password field, we wont have to write the same logic again
+ * ADVANTAGES:
+ *   1. Don't need to write the code that is common in all the input fields everytime an input field is used
+ */
 
 export const TextFieldWrapper = ({
   hint,

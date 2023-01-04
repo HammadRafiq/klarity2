@@ -1,6 +1,12 @@
 import { LoadingButton } from '@mui/lab'
-import { Button } from '@mui/material'
 import React from 'react'
+
+/* Whenever a button is needed in the project, we call CustomButton component.
+ * CustomButton by default has the same styling as one of the most used buttons of our app.
+ * If a button is required with different styling, we pass the changings props while calling this component to meet our button style needs
+ * ADVANTAGES:
+ *   1. Don't need to write the code that is common in all the buttons everytime a button is used
+ */
 
 const CustomButton = ({
     color = "#fff",

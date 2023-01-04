@@ -20,21 +20,18 @@ const validationSchemaAuth = Yup.object({
         .required("Field required"),
 });
 
-
 const Filter = () => {
 
     const [data, setData] = useState([])
-    const { libraryId } = useParams()
-
-    // const allRecords = useSelector(state => state.filter.allRecords)
+    const { libraryId } = useParams() // Get libraryId from the URL
 
     const getEntityTypes = async () => {
         const { data } = await apiGetRequest(endpoints.getEntityTypes, null, { library: libraryId })
         setData(data)
     }
 
-    useEffect(() => {
-        getEntityTypes()
+    useEffect(() => { // useEffect runs once when the user visits the screen
+        getEntityTypes() // Call the API to get Entity Types against which table data is to be populated when user visits the screen
     }, [])
 
 

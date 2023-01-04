@@ -1,5 +1,7 @@
 import React from 'react'
 
+// Not yet part of the project
+
 const ChangePassword = () => {
   return (
     
