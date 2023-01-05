@@ -22,26 +22,27 @@ const Login = () => {
 
     const { login } = useAuthContext() // Context API used to access login function
 
-    // Once the submit button is clicked, call the login API and navigate the user to the Overview page if the provided credentials are valid
+    /* Once the submit button is clicked, call the login API and navigate the user to the Overview page if
+     * the provided credentials are valid
+     */
     const onFinish = async (input) => {
-        console.log("input: ", input)
         setLoading(true)
         apiPostRequest(
             endpoints.getAccessToken,
             input
         ).then(response => {
-            if (response?.data?.status !== "ERROR") {
+            if (response?.data?.status !== "ERROR") { // If credentials are valid, navigate the user to overview screen
                 login(response?.data?.token)
                 navigate('/overview')
             }
-            else {
+            else { // If the credentials are invalid, show error message
                 enqueueSnackbar("Something went wrong",
                     {
                         variant: "error"
                     })
             }
         }).finally(res => {
-            setLoading(false)
+            setLoading(false) // Once we get the response successfully from the API called, set loading status of buttont to false. The loading status of button should only be true once the API is hit from frontend but we didnt get any response (success or error) from the server.
         })
     }
 
@@ -68,13 +69,13 @@ const Login = () => {
             }}>
                 <KlarityLogo />
             </Box>
-            <Formik // Formik library is being used to handle the forms. All the validations implemented on the input fields (e.g required input) is done using Formik. 
-                initialValues={{
+            <Formik 
+                initialValues={{ // Refer to documentation > 1.2
                     username: "",
                     password: "",
                     companyId: ""
                 }}
-                onSubmit={onFinish} // Function called once user clicks submit button, onSubmit will only run when all the input fields are valid. (For example if username is required and user leaves username field empty, onFinish function wont be called and hence the login API wont be called unless fields are valid)
+                onSubmit={onFinish} // Refer to documentation > 1.1
             >
                 {() => (
                     <Form>

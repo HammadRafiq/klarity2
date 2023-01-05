@@ -12,104 +12,24 @@ import { useQuery } from '@tanstack/react-query'
 // 1. dont use sx on both container and item grid
 // 2. use container with parent and item with child grid
 // 3. wrap child grid item in a Box
-
 // Data map missing: Snippets,
-
-const libraryData = [
-  {
-    pageCounter: 34,
-    notesDocsCounter: 2,
-    ocrDone: 21,
-    snippets: 5,
-    readDocsCounter: 5,
-    inPipeline: 0,
-    taggedDocsCounter: 349,
-    duplicates: 17,
-    filesize: 23,
-    problems: 14,
-    firstIndexDate: "15.05.2022",
-    lastIndexDate: "15.05.2022"
-  },
-  {
-    pageCounter: 34,
-    notesDocsCounter: 2,
-    ocrDone: 21,
-    snippets: 5,
-    readDocsCounter: 5,
-    inPipeline: 0,
-    taggedDocsCounter: 349,
-    duplicates: 17,
-    filesize: 23,
-    problems: 14,
-    firstIndexDate: "15.05.2022",
-    lastIndexDate: "15.05.2022"
-  },
-  {
-    pageCounter: 34,
-    notesDocsCounter: 2,
-    ocrDone: 21,
-    snippets: 5,
-    readDocsCounter: 5,
-    inPipeline: 0,
-    taggedDocsCounter: 349,
-    duplicates: 17,
-    filesize: 23,
-    problems: 14,
-    firstIndexDate: "15.05.2022",
-    lastIndexDate: "15.05.2022"
-  },
-  {
-    pageCounter: 34,
-    notesDocsCounter: 2,
-    ocrDone: 21,
-    snippets: 5,
-    readDocsCounter: 5,
-    inPipeline: 0,
-    taggedDocsCounter: 349,
-    duplicates: 17,
-    filesize: 23,
-    problems: 14,
-    firstIndexDate: "15.05.2022",
-    lastIndexDate: "15.05.2022"
-  },
-  {
-    pageCounter: 34,
-    notesDocsCounter: 2,
-    ocrDone: 21,
-    snippets: 5,
-    readDocsCounter: 5,
-    inPipeline: 0,
-    taggedDocsCounter: 349,
-    duplicates: 17,
-    filesize: 23,
-    problems: 14,
-    firstIndexDate: "15.05.2022",
-    lastIndexDate: "15.05.2022"
-  },
-]
 
 const Overview = () => {
   const [search, setSearch] = useState("")
 
-  const rerender = useCallback(() => {
-    // setPagination(pagination => ({
-    //   ...pagination
-    // }))
-  }, [])
-
   // START: REACT QUERY //
   const getLibraryData = async ({ queryKey }) => {
-    let data = {
+    let data = { // Use the following payload when "libraryOverview" API is called
       page: 1,
       maxResults: 10,
       search: ""
     }
     return apiGetRequest(endpoints.libraryOverview, null, data)
   }
-  const { data, isLoading, error } = useQuery(["overview", search], getLibraryData)
+  const { data, isLoading, error } = useQuery(["overview", search], getLibraryData) // Call the "libraryOverview" API when user visits the Overview screen
   //END: REACT QUERY //
 
-  const handleSearch = (e) => {
+  const handleSearch = (e) => { // Deals with the searching of the libraries. To be implemented.
     // setPagination({
     //   ...pagination,
     //   page: 1
@@ -208,7 +128,7 @@ const Overview = () => {
           Libraries
         </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={3}>
+          <Grid item xs={3}> {/* First item of the grid will always be the box used to create new library */}
             <Box height="100%" sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px", minHeight: "198px" }}>
               <label style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
                 <input
@@ -222,7 +142,7 @@ const Overview = () => {
                 </Box>
               </label>
             </Box>
-          </Grid>
+          </Grid>          
           {data?.data?.values?.map((obj, index) => (
             <LibraryItem key={index} obj={obj} />
           ))

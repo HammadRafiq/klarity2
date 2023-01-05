@@ -12,6 +12,8 @@ import { ReactComponent as CommentIcon } from '../../Assets/comment.svg'
 import { ReactComponent as FileIcon } from '../../Assets/file.svg'
 import { ReactComponent as InfoIcon } from '../../Assets/info-circle.svg'
 
+// Search results screen. Integration to be done
+
 const SearchResult = () => {
     const [activeView, setActiveView] = useState("list")
 
