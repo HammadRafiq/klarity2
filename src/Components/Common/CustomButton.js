@@ -10,7 +10,7 @@ import React from 'react'
 
 const CustomButton = ({
     color = "#fff",
-    backgroundColor = "secondary.main",
+    backgroundColor = "secondary.main", // secondary.main is a short for theme.palette.secondary.main
     hoverBackground = "red",
     borderRadius = "4px",
     fontWeight = 500,

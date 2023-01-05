@@ -15,4 +15,3 @@ Routes: React is a SPA (Single Page Application). Routing helps to navigate from
         AppRoutes: Consists of all the routing logic and all the routes of the app
         Protected Routes: All the routes that must only be available for a logged in user are handled here. A non logged-in user won't be able to access the protected routes
 Theme: We have used MUI (Material UI) design framework in the app. It consists of all the colors and typography being used in the app. For example, subtitle1 (font-size, font-weight, line-height) has explicity been mentioned so that it can be reused throughout the project. Using theme makes the styling approach highly scalable, it will be easy to cater to different themes (light, dark) in the future.
-
