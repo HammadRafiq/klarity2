@@ -4,7 +4,7 @@ import { ReactComponent as PuzzleIcon } from '../../Assets/puzzle-icon.svg'
 import { ReactComponent as VerticalDots } from '../../Assets/vertical-dots.svg'
 import { useNavigate } from 'react-router-dom'
 
-
+// Mapping the API data with the titles shown in the UI.
 const dataMap = {
     lastIndexDate: "Last",
     filesize: "File size",
@@ -24,7 +24,7 @@ const LibraryItem = ({ obj }) => {
     const navigate = useNavigate()
 
     const libraryHandler = () => {
-        navigate(`/filter/${obj.indexname}`)
+        navigate(`/filter/${obj.indexname}`) // When clicked on a specific library, navigate to the Filter screen with libraryId in the URL
     }    
 
     return (
@@ -52,7 +52,7 @@ const LibraryItem = ({ obj }) => {
                             <Grid item xs={6}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <Typography variant='body2'>
-                                        {dataMap[item[0]] ?? item[0]}
+                                        {dataMap[item[0]]}
                                     </Typography>
                                     <Typography variant='body1'>
                                         {item[1]}

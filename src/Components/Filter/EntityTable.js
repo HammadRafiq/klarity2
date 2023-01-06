@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 const EntityTable = ({ libraryId, item, className }) => {
 
     const dispatch = useDispatch()
-    const detectedFilters = useSelector(state => state.filter.detectedFilters)
+    const detectedFilters = useSelector(state => state.filter.detectedFilters) // Get the detectedFilters array from the store so that it can be used in the payload while calling "dashboard/getTableData" API
 
     const columns = React.useMemo(
         () => [
@@ -19,7 +19,7 @@ const EntityTable = ({ libraryId, item, className }) => {
                 accessorFn: (row) => row.term,
                 id: "term",
                 cell: (info) => (
-                    <Box sx={{ cursor: "pointer" }} onClick={() => dispatch(addDetectedFilter({
+                    <Box sx={{ cursor: "pointer" }} onClick={() => dispatch(addDetectedFilter({ // If user clicks on the term of the table, add that term to the detectedFilters array
                         term: info.getValue(),
                         entityType: item?.shortCut
                     }))}
@@ -46,7 +46,7 @@ const EntityTable = ({ libraryId, item, className }) => {
     );
 
     const res = ({ limit, currentPage, ...rest }) => {
-        let data = {
+        let data = { // This is the payload of the "dashboard/getTableData" API
             maxResults: limit,
             page: currentPage,
             isOr: 0,
@@ -55,7 +55,7 @@ const EntityTable = ({ libraryId, item, className }) => {
             entityType: item?.shortCut,
             detectedFilter: detectedFilters
         }
-        return apiPostRequest(
+        return apiPostRequest( // "dashboard/getTableData" is being called here
             endpoints.getTableData,
             data
         )
@@ -82,7 +82,7 @@ const EntityTable = ({ libraryId, item, className }) => {
         setLimit,
         setSortBy,
         setSort,
-    } = useTableData(querydata)
+    } = useTableData(querydata) // Calling the useTableData hook here that deals with the pagination of the table i.e what should happen when prev/next icon (indicating next/previous page of the table) is clicked
 
 
     return (

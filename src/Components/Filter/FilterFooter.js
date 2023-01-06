@@ -3,9 +3,11 @@ import CustomButton from '../../Components/Common/CustomButton'
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+// Display the foundResults and totalDocuments in the footer of the Filter screen
+
 const FilterFooter = () => {
     
-    const allRecords = useSelector(state => state.filter.allRecords)
+    const allRecords = useSelector(state => state.filter.allRecords) // When API returns foundResults and totalDocuments, it gets stored in allRecords variable and as soon as allRecords value changes, UI updates
 
     return (
         <Box sx={{ backgroundColor: "background.default", position: "absolute", bottom: "0", left: "0", width: "100%" }}>
