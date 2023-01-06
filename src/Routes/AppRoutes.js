@@ -9,6 +9,10 @@ import Filter from '../Pages/Filter'
 import Search from '../Pages/Search'
 import SearchResult from '../Pages/Search/SearchResult'
 
+// Routes: React is a SPA (Single Page Application). Routing helps to navigate from one screen (or component) to another.
+//        AppRoutes: Consists of all the routing logic and all the routes of the app
+//        Protected Routes: All the routes that must only be available for a logged in user are handled here. A non logged-in user won't be able to access the protected routes
+
 const AppRoutes = () => {
 
     const routes = [

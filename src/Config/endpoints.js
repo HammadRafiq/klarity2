@@ -1,3 +1,4 @@
+// Consists of all the API endpoints here
 export const endpoints = {
     getTableData: `dashboard/getTableData`,
     getAccessToken: `getAccessToken`,

@@ -8,12 +8,12 @@ import { Box } from "@mui/material";
 import { addDetectedFilter } from "../../Pages/Filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const EntityTable = ({ libraryId, item, className }) => {
 
+const EntityTable = ({ libraryId, item, className }) => {
     const dispatch = useDispatch()
     const detectedFilters = useSelector(state => state.filter.detectedFilters) // Get the detectedFilters array from the store so that it can be used in the payload while calling "dashboard/getTableData" API
 
-    const columns = React.useMemo(
+    const columns = React.useMemo( // columns array that will be passed to Tan stack table
         () => [
             {
                 accessorFn: (row) => row.term,
@@ -63,8 +63,8 @@ const EntityTable = ({ libraryId, item, className }) => {
 
     const querydata = useMemo(() => {
         return {
-            key: `filterTable-${item?.shortCut}`,
-            apiFunc: res,
+            key: `filterTable-${item?.shortCut}`, // Unique id to distinguish tables from each other on Filter screen
+            apiFunc: res, // res is the function defined above that contains API call logic. It is passed to useTableHook
         }
     }, [])
 

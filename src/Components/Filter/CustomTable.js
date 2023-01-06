@@ -23,7 +23,7 @@ import CustomButton from "../Common/CustomButton";
 
 
 const CustomTable = (props) => {
-    const {
+    const { // Destructuring the props being passed to CustomTable component
         columns,
         data,
         isLoading,
@@ -38,18 +38,13 @@ const CustomTable = (props) => {
         res
     } = props;
 
-    const handleSortBy = (column) => {
-        setSortBy(column);
-        setSort((previous) => (previous === 1 ? -1 : 1));
-    };
-
-    const table = useReactTable({
-        data: data ?? [],
+    const table = useReactTable({ // default configurations provided by TanStack table
+        data: data ?? [], // if data comes from backend, use that to populate table else simply pass empty array to the table. 
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
 
-    if (isLoading) return (
+    if (isLoading) return ( // if API is called and server hasn't yet responded, show the skeleton/spinner on frontend for better user experience
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: 195, padding: "0 30px" }}>
             <Box sx={{ flex: 1 }} >
                 <Skeleton height={30} animation="wave" />
@@ -60,13 +55,13 @@ const CustomTable = (props) => {
         </Box>
     )
 
-    return (
+    return ( // If API is called and API has successfully provided with the response (success or error) then below code runs
         <Grid container>
             <Grid xs={12} item>
                 <Box>
                     <Box sx={{ overflowX: "auto" }}>
                         <TableContainer
-                            sx={{
+                            sx={{ // CSS used to apply scrollbar on the table
                                 "&::-webkit-scrollbar": {
                                     width: 5,
                                     height: 6,
@@ -79,6 +74,7 @@ const CustomTable = (props) => {
                             }}
                         >
                             <Table stickyHeader aria-label="sticky table">
+                                {/* TABLE HEADER STARTS HERE  */}
                                 <TableHead>
                                     {table.getHeaderGroups().map((headerGroup) => (
                                         <TableRow key={headerGroup.id}>
@@ -97,7 +93,9 @@ const CustomTable = (props) => {
                                         </TableRow>
                                     ))}
                                 </TableHead>
+                                {/* TABLE HEADER ENDS HERE  */}
 
+                                {/* Only show table body if API returns data successfully*/}
                                 {isSuccess && table.getRowModel().rows.length > 0 && (
                                     <TableBody>
                                         {table.getRowModel().rows?.map((row) => (
@@ -117,26 +115,15 @@ const CustomTable = (props) => {
                                     </TableBody>
                                 )}
                             </Table>
+
+                            {/* In case API throws an error or no API returns no data in the response, show no content found UI */}
                             {(isError || table.getRowModel().rows.length === 0) && (
-                                // <Grid
-                                //     container
-                                //     alignItems={"center"}
-                                //     justifyContent={"center"}
-                                //     padding={5}
-                                // >
-                                //     <Grid item>
-                                //         <Box width={200}>
-                                //             <NoContentFound /><br/>
-                                //             No content found
-                                //         </Box>
-                                //     </Grid>
-                                // </Grid>
-                                <Box sx={{display: "flex", alignItems: "center", justifyContent: "center", marginTop: "40px"}}>
-                                    <Box sx={{textAlign: "center"}}>
+                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "40px" }}>
+                                    <Box sx={{ textAlign: "center" }}>
                                         <Box>
                                             <NoContentFound />
                                         </Box>
-                                        <Typography variant="body1" sx={{marginTop: "8px"}}>
+                                        <Typography variant="body1" sx={{ marginTop: "8px" }}>
                                             No data available in table
                                         </Typography>
                                     </Box>
@@ -152,32 +139,16 @@ const CustomTable = (props) => {
                                         <Typography
                                             variant="body2"
                                         >
+                                            {/* The following logic deals with showing the currently navigated entries and the total entries of the table i.e 101/150 entries */}
                                             {limit * (currentPage - 1) + 1}-{currentPage === count ?
                                                 (limit * (currentPage - 1) + res?.recordsFiltered) : (limit * currentPage)}/{res?.recordsTotal}
                                         </Typography>
                                     </Box>
+
+                                    {/* TABLE PAGINATION LOGIC STARTS HERE */}
                                     <Box sx={{ marginLeft: "auto" }}>
-                                        {/* <Pagination
-                                            sx={{
-                                                ".Mui-selected": {
-                                                    backgroundColor: "#19456A !important",
-                                                    color: "background.default",
-                                                },
-                                            }}
-                                            showFirstButton
-                                            showLastButton
-                                            size="small"
-                                            variant="outlined"
-                                            shape="rounded"
-                                            count={count}
-                                            page={currentPage}
-                                            onChange={(e, page) => {
-                                                console.log("page: ", page)
-                                                setCurrentPage(page);
-                                            }}
-                                        /> */}
                                         <div className="flex items-center gap-2">
-                                            <CustomButton
+                                            <CustomButton // Used to display Double Chevron Left icon. If clicked navigate the table to first page
                                                 padding="0"
                                                 minWidth="auto"
                                                 height="auto"
@@ -192,7 +163,7 @@ const CustomTable = (props) => {
                                                 onClick={() => setCurrentPage(1)}
                                                 disabled={currentPage === 1}
                                             />
-                                            <CustomButton
+                                            <CustomButton // Used to display Chevron Left icon. If clicked navigate the table to previous page
                                                 padding="0 5px"
                                                 minWidth="auto"
                                                 height="auto"
@@ -207,7 +178,7 @@ const CustomTable = (props) => {
                                                     }
                                                 }}
                                             />
-                                            <CustomButton
+                                            <CustomButton // Used to Chevron Right icon. If clicked navigate the table to next page
                                                 padding="0 5px"
                                                 minWidth="auto"
                                                 height="auto"
@@ -222,7 +193,7 @@ const CustomTable = (props) => {
                                                 onClick={() => setCurrentPage(prev => prev + 1)}
                                                 disabled={currentPage === count}
                                             />
-                                            <CustomButton
+                                            <CustomButton // Used to display Double Chevron Right icon. If clicked navigate the table to the last page of the table
                                                 padding="0"
                                                 minWidth="auto"
                                                 height="auto"
