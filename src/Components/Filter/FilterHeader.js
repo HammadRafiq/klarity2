@@ -95,23 +95,3 @@ const FilterHeader = () => {
 }
 
 export default FilterHeader
-
-{/* <Col span={12}>
-<div className='keyword-filter-main d-flex align-items-center flex-wrap'>
-    {
-        detectedFilters?.length > 0 ?
-            detectedFilters?.map(term => (
-                <div
-                    className='keyword-item d-flex align-items-center cursor-pointer'
-                    onClick={() => dispatch(removeDetectedFilter(term))}
-                >
-                    <p className='mr-4'>{term?.split('#')[1]}</p>
-                    <CrossIcon />
-                </div>
-            )) :
-            <p className='keyword-item-placeholder'>
-                Keyword filter
-            </p>
-    }
-</div>
-</Col> */}
