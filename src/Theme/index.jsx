@@ -1,6 +1,13 @@
 import { createTheme } from '@mui/material';
 import React from 'react'
 
+// Theme: We have used MUI (Material UI) design framework in the app. It provides with an ability to define a
+// theme for the app. Theme consists of all the colors and typography being used in the app.
+// For example, subtitle1 (font-size, font-weight, line-height) has explicity been mentioned so that
+// it can be reused throughout the project. Using theme makes the styling approach highly scalable,
+// it will be easy to cater to different themes (light, dark) in the future.
+
+
 export const theme = createTheme({
     palette: {
         common: {

@@ -108,7 +108,7 @@ const LibraryItem = ({ obj }) => {
                     </Box>
                 </Box>
                 <Grid container columnSpacing={2}>
-                    {Object.entries(obj)?.map((item, index) => {
+                    {Object.entries(obj)?.map((item, index) => { // Applying the loop on the individual object of the array to populate all the key/value pairs in the grid
                         return dataMap[item[0]] && (
                             <Grid item xs={6}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -130,5 +130,3 @@ const LibraryItem = ({ obj }) => {
 }
 
 export default LibraryItem
-
-// dataMap[item[0]]

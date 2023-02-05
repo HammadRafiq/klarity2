@@ -17,9 +17,11 @@ const FilterFooter = () => {
                         Result:
                     </Typography>
                     <Typography variant='subtitle2'>
-                        {allRecords?.foundResults}/{allRecords?.totalDocuments}
+                        {allRecords?.foundResults}/{allRecords?.totalDocuments} {/* i.e Result: 13/30 */}
                     </Typography>
                 </Box>
+
+                {/* Go to Review button UI below*/}
                 <CustomButton
                     title='Go to Review'
                     type="submit"

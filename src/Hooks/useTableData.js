@@ -21,11 +21,13 @@ export const useTableData = ({ apiFunc, key }) => {
     currentPage: currentPage
   };
 
+  // Calling the API to get table data and the respective statuses from backend
   const { data, isError, isSuccess, isLoading, refetch } = useQuery({
     queryKey: [`${key}`, currentPage, limit, filter, sortBy, sort, detectedFilters],
     queryFn: () => apiFunc(payload),
   });
 
+  // Return the stateful data to be used in the individual components of the multiple tables
   return {
     data,
     isError,
@@ -44,7 +46,8 @@ export const useTableData = ({ apiFunc, key }) => {
     setSort,
   };
 };
+
 /////////////////////////////gettable data function//////////////////////////////////////////
-export const ChangeTableData = (props) => {
+export const ChangeTableData = (props) => { // Not yet needed. not implemented yet. 
   return useMutation(props);
 };

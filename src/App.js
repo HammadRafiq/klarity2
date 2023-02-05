@@ -10,6 +10,8 @@ import { store } from './store';
 import AuthProvider from './Context/AuthContext';
 import "./_App.scss"
 
+// This is the parent component of all components. The data passed from here using Context API will be available to all the components.
+
 function App() {
 
   const queryClient = new QueryClient() 

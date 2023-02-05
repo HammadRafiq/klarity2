@@ -57,8 +57,7 @@ const Login = () => {
             <Formik
                 initialValues={{ // Refer to documentation > 1.2
                     username: "",
-                    password: "",
-                    // companyID: ""
+                    password: ""
                 }}
                 onSubmit={onFinish} // Refer to documentation > 1.1
             >

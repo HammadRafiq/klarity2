@@ -8,6 +8,10 @@ import { ReactComponent as ArrowBack } from '../Assets/arrow-back.svg'
 import { sidebarConstants } from '../Constants/sidebar'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
+// The Layout consists of the common Layout (mainly sidebar) of the app. Every component being wrapped by this component means the Left Sidebar
+// will be shown for that page/screen/component.
+// For example, we wrap Filter screen component with this Layout component because we need Left Sidebar for Filter screen but
+// we dont wrap Overview screen component with this Layout component because we dont need Left Sidebar for overview screen.
 
 const Layout = ({ children }) => {
 
@@ -34,8 +38,8 @@ const Layout = ({ children }) => {
                     <Box>
                         {
                             sidebarConstants?.map(item => {
-                                let isActiveMenu = location?.pathname?.includes(item?.title?.toLowerCase())
-                                let link = item?.libraryVariable ? `${item.link}/${libraryId}` : item.link
+                                let isActiveMenu = location?.pathname?.includes(item?.title?.toLowerCase()) // Active menu is the one on which user clicks
+                                let link = item?.libraryVariable ? `${item.link}/${libraryId}` : item.link // Link to be called when user clicks on some item of the left sidebar
                                 return (
                                     <Box
                                         sx={{ display: "flex", marginBottom: "4px", padding: "6px 8px 4px 8px", borderRadius: "4px", cursor: "pointer", backgroundColor: isActiveMenu && "background.dark" }}

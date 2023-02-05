@@ -7,6 +7,8 @@ import { ReactComponent as IvisIcon } from '../Assets/ivis.svg'
 import { ReactComponent as LightbulbIcon } from '../Assets/lightbulb.svg'
 import { ReactComponent as FilesIcon } from '../Assets/all-files.svg'
 
+// Consists the data of the Sidebar in the form of an array
+
 export const sidebarConstants = [
     {
         title: "Dashboard",
