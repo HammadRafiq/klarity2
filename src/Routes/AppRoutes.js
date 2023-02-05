@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from '../Pages/Auth/Login'
-import ForgotPassword from '../Pages/Auth/ForgotPassword'
+import PasswordReset from '../Pages/Auth/PasswordReset'
+import NewPassword from '../Pages/Auth/NewPassword'
 import Overview from '../Pages/Overview'
 import Registration from '../Pages/Auth/Registration'
 import ProtectedRoutes from './ProtectedRoutes'
@@ -35,7 +36,8 @@ const AppRoutes = () => {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Registration />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/password-reset" element={<PasswordReset />} />
+                <Route path="/new-password" element={<NewPassword />} />
                 <Route path="/" element={<Login />} />
             </Routes>
 

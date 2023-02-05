@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { TextFieldWrapper } from '../../Components/Common/TextFieldWrapper'
 import Layout from '../../Layout'
 import { ReactComponent as SearchIcon } from '../../Assets/input-prefix-search.svg'
-import { apiGetRequest, apiPostRequest } from '../../Helpers'
+import { apiPostRequest } from '../../Helpers'
 import { endpoints } from '../../Config/endpoints'
 import { useParams } from 'react-router-dom'
 

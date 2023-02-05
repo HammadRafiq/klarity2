@@ -26,7 +26,7 @@ const Filter = () => {
     const { libraryId } = useParams() // Get libraryId from the URL
 
     const getEntityTypes = async () => {
-        const { data } = await apiGetRequest(endpoints.getEntityTypes, null, { library: libraryId })
+        const { data } = await apiGetRequest(endpoints.getEntityTypes, { library: libraryId }, null)
         setData(data)
     }
 

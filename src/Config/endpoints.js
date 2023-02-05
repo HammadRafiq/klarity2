@@ -3,5 +3,6 @@ export const endpoints = {
     getAccessToken: `getAccessToken`,
     libraryOverview: "libraryOverview",
     getEntityTypes: `dashboard/getLibraryEntityTypes`,
-    loadSearchResults: `documentView/loadSearchResults`
+    loadSearchResults: `documentView/loadSearchResults`,
+    forgotPassword: `forgotPassword`
 };

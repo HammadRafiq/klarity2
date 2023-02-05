@@ -7,6 +7,7 @@ import LibraryItem from '../../Components/Overview/LibraryItem'
 import { apiGetRequest } from '../../Helpers'
 import { endpoints } from '../../Config/endpoints'
 import { useQuery } from '@tanstack/react-query'
+import CommonDeleteModal from '../../Components/Common/CommonDeleteModal'
 
 // In order for Grid Spacing to work:
 // 1. dont use sx on both container and item grid
@@ -24,7 +25,7 @@ const Overview = () => {
       maxResults: 10,
       search: ""
     }
-    return apiGetRequest(endpoints.libraryOverview, null, data)
+    return apiGetRequest(endpoints.libraryOverview, data, null)
   }
   const { data, isLoading, error } = useQuery(["overview", search], getLibraryData) // Call the "libraryOverview" API when user visits the Overview screen
   //END: REACT QUERY //
@@ -123,6 +124,8 @@ const Overview = () => {
             </Box>
           </Box>
         </Box>
+
+        <CommonDeleteModal />
 
         <Typography variant="h2" sx={{ margin: "22px 0 10px 0" }}>
           Libraries

@@ -21,6 +21,7 @@ const CustomButton = ({
     minWidth = "100px",
     title = "Button",
     fontSize = "14px",
+    styleObj = {},
     textTransform = "capitalize",
     type = "button",
     disabledStyle = {},
@@ -49,7 +50,7 @@ const CustomButton = ({
                     borderColor: borderColor,
                     minWidth: minWidth,
                     textTransform: textTransform,
-                    ...rest,
+                    ...styleObj
                 },
                 "&:hover": {
                     // backgroundColor: hoverBackground
@@ -57,6 +58,7 @@ const CustomButton = ({
                 "&.Mui-disabled": disabledStyle,
                 "& svg": svgStyle
             }}
+            {...rest}
         >
             {title}
         </LoadingButton>

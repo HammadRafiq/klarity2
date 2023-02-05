@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import Card from "@mui/material/Card";
 import CustomTable from "../Filter/CustomTable";
-import { apiGetRequest, apiPostRequest } from "../../Helpers";
+import { apiPostRequest } from "../../Helpers";
 import { endpoints } from "../../Config/endpoints";
 import { useTableData } from "../../Hooks/useTableData";
 import { Box } from "@mui/material";

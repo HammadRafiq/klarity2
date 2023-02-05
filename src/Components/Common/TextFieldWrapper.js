@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { ErrorMessage, useField } from "formik";
 import { Box } from "@mui/system";
 import { IconButton, InputAdornment, Typography } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff, Info } from "@mui/icons-material";
 
 /* Whenever an input field is needed, we make use of this Common Text Field Component
  * TextFieldWrapper by default has the same styling as the most used input field of our app
@@ -27,13 +27,14 @@ export const TextFieldWrapper = ({
   fontWeight = 400,
   marginBottom = "0px",
   handleKeyDown,
+  styleObj = {},
   ...props
 }) => {
   const [field, meta] = useField(props);
   const [showPassword, setShowPassword] = useState(false);
 
   const onKeyDown = (e) => {
-    if(handleKeyDown){
+    if (handleKeyDown) {
       handleKeyDown(e)
     }
   }
@@ -48,7 +49,8 @@ export const TextFieldWrapper = ({
       fontWeight: fontWeight,
       color: color,
       width: width,
-      marginBottom: marginBottom
+      marginBottom: marginBottom,
+      ...styleObj
     }
   }
 
@@ -119,17 +121,33 @@ export const TextFieldWrapper = ({
             {hint}
           </Typography>
         </Box>
-        {meta.error && (
+        {(meta.error && meta.touched) && (
           <Box
             sx={{
               display: "flex",
-              justifyContent: "start",
+              justifyContent: "end",
               alignItems: "center",
+              marginTop: "5px"
             }}
           >
             <ErrorMessage
-              component="div"
+              component="p"
               name={field.name}
+              style={{
+                color: "red",
+                fontSize: "12px",
+                margin: "0"
+              }}
+            />
+            <Info
+              fontSize="7px"
+              color="red"
+              sx={{
+                marginLeft: "5px",
+                path: {
+                  fill: "red"
+                }
+              }}
             />
           </Box>
         )}

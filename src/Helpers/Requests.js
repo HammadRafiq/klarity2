@@ -1,10 +1,11 @@
 import axios from "axios";
+import { BaseURL } from "../Config";
 import { getToken } from "./Tokens";
 // import { environment } from "src/config";
 // export const BASE_URL: string = environment.apiKey;
 
 // Get request Function
-export const apiGetRequest = (endpoint, token = null, props = {}) =>
+export const apiGetRequest = (endpoint, props = {}, token = null) =>
   ApiRequest("GET", endpoint, token, props);
 
 // Post request Function
@@ -20,7 +21,7 @@ export const apiPutRequest = (endpoint, payload, token = null) =>
   ApiRequest("PUT", endpoint, token, { data: payload });
 
 // Delete Request Function
-export const apiDeleteRequest = (endpoint, token = null, props = {}) =>
+export const apiDeleteRequest = (endpoint, props = {}, token = null) =>
   ApiRequest("DELETE", endpoint, token, props);
 
 // Api Request for all the api methods
@@ -35,7 +36,7 @@ export const ApiRequest = (
   }
   const params = {
     method,
-    baseURL: "https://proflow.at/rest/api/",
+    baseURL: `${BaseURL}/rest/api/`,
     url: endpoint,
     params:
       method.toLowerCase() === "get" || method.toLowerCase() === "delete"
