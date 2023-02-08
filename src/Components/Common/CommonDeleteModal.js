@@ -16,26 +16,25 @@ const style = {
     padding: "20px"
 };
 
-const CommonDeleteModal = () => {
-    const [open, setOpen] = useState(false)
+const CommonDeleteModal = ({
+    open = false,
+    setOpen
+}) => {
 
-    const showModal = () => {
-        setOpen(false)
-    }
-
-    const handleCancel = () => {
+    const handleCancel = (e) => {
+        e.stopPropagation()
         setOpen(false)
     }
 
     return (
         <Box>
             <Modal
-                open={true}
-                onClose={handleCancel}
+                open={open}
+                // onClose={handleCancel}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style}>
+                <Box className='primary-modal' onClick={e => e.stopPropagation()}>
                     <Typography variant='h2'>
                         Delete
                     </Typography>
@@ -66,13 +65,13 @@ const CommonDeleteModal = () => {
                                 <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: "40px" }}>
                                     <CustomButton
                                         title='Cancel'
-                                        type="submit"
                                         backgroundColor='#FFF'
                                         borderColor='#C1C7D0'
                                         color='text.secondary'
                                         styleObj={{
                                             marginRight: "15px"
                                         }}
+                                        onClick={handleCancel}
                                     />
                                     <CustomButton
                                         title='Delete'

@@ -35,7 +35,8 @@ export const theme = createTheme({
         },
         grey: {
             100: "#DEE2E6",
-            200: "#F9F9F9"
+            200: "#F9F9F9",
+            700: "#7B8794"
         }
     },
     typography: {
@@ -46,11 +47,11 @@ export const theme = createTheme({
         },
         h2: {
             fontSize: "20px",
-            fontWeight: 700,            
+            fontWeight: 700,
         },
         h3: {
             fontSize: "12px",
-            fontWeight: 700,            
+            fontWeight: 700,
         },
         subtitle1: {
             fontSize: "16px",
@@ -85,7 +86,24 @@ export const theme = createTheme({
                     boxShadow: "0px 0px 35px rgba(154, 161, 171, 0.15)"
                 }
             }
-        }
+        },
+        MuiTabs: {
+            styleOverrides: {
+                indicator: {
+                    backgroundColor: "#D955C3",
+                },
+            },
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    textTransform: "capitalize",
+                    "&.Mui-selected": {
+                        color: "#D955C3",
+                    },
+                },
+            }
+        },
     }
 });
 

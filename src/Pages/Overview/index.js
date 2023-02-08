@@ -124,9 +124,6 @@ const Overview = () => {
             </Box>
           </Box>
         </Box>
-
-        <CommonDeleteModal />
-
         <Typography variant="h2" sx={{ margin: "22px 0 10px 0" }}>
           Libraries
         </Typography>

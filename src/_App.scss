@@ -1,0 +1,11 @@
+
+.primary-modal{
+    position: absolute;
+    background-color: #fff;
+    box-shadow: inset 0px 0px 8px rgba(193, 227, 255, 0.47);
+    border-radius: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+}
