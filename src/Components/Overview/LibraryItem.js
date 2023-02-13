@@ -102,7 +102,10 @@ const LibraryItem = ({ obj }) => {
                     open={deleteVisible}
                     setOpen={setDeleteVisible}
                 />
-                <ManageLibraryModal />
+                <ManageLibraryModal
+                    open={settingsVisible}
+                    setOpen={setSettingsVisible}
+                />
             </Paper>
         </Grid>
     )

@@ -20,6 +20,10 @@ const CustomCheckbox = ({
                     id={field.name}
                     value={field.value}
                     sx={{
+                        color: "secondary.main",
+                        '&.Mui-checked': {
+                            color: "secondary.main",
+                        },
                         ...styleObj
                     }}
                 />
