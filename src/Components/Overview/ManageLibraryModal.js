@@ -25,7 +25,7 @@ const ManageLibraryModal = ({ open = false, setOpen }) => {
     return (
         <Box>
             <Modal
-                open={true}
+                open={open}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
