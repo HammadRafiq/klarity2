@@ -23,6 +23,7 @@ export const theme = createTheme({
         text: {
             primary: "#122841",
             secondary: "#7B8794",
+            error: "#E55E5E",
             white: "#fff",
             disabled: "#D955C3",
             primaryChannel: "#D955C3",
@@ -92,6 +93,9 @@ export const theme = createTheme({
                 indicator: {
                     backgroundColor: "#D955C3",
                 },
+                flexContainer: {
+                    borderBottom: "2px solid #DEE2E6"
+                }
             },
         },
         MuiTab: {
