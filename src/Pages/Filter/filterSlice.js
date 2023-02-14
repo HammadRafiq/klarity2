@@ -12,7 +12,9 @@ const initialState = {
         foundResults: 0,
         totalDocuments: 0
     },
-    topSearchQuery: ""
+    topSearchQuery: "",
+    selectedDashboardId: "",
+    filteredData: []
 }
 
 export const filterSlice = createSlice({
@@ -32,11 +34,20 @@ export const filterSlice = createSlice({
         },
         updateSearchQuery: (state, action) => {
             state.topSearchQuery = action.payload
-        }
+        },
+        updateTableLastSearch: (state, action) => { // Preserve the last search value of the table to be used in IVIS screen
+            state.tableLastSearch = action.payload
+        },
+        updateSelectedDashboard: (state, action) => { // Preserve the value of dashboard layout selected by user so that the same layout could be shown to the user again. i.e User selects "layout4" then navigates to Documents module and when he comes back he should see layout4 instead of the default one
+            state.selectedDashboardId = action.payload
+        },
+        updateFilteredData: (state, action) => { // Preserve the value of dashboard layout selected by user so that the same layout could be shown to the user again. i.e User selects "layout4" then navigates to Documents module and when he comes back he should see layout4 instead of the default one
+            state.filteredData = action.payload
+        },
     }
 })
 
-export const { addDetectedFilter, removeDetectedFilter, updateAllRecords, updateSearchQuery } = filterSlice.actions
+export const { addDetectedFilter, removeDetectedFilter, updateAllRecords, updateSearchQuery, updateSelectedDashboard, updateTableLastSearch, updateFilteredData } = filterSlice.actions
 export default filterSlice.reducer
 
 export const GetMetaData = (obj) => async (dispatch) => { // Redux thunk to handle async API call

@@ -21,6 +21,7 @@ import { ReactComponent as NoContentFound } from "../../Assets/no-content-found.
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import CustomButton from "../Common/CustomButton";
 
+const emptyArray = []
 
 const CustomTable = (props) => {
     const { // Destructuring the props being passed to CustomTable component
@@ -35,11 +36,12 @@ const CustomTable = (props) => {
         setSortBy,
         setSort,
         limit,
-        res
+        res,
+        numOfTables
     } = props;
 
     const table = useReactTable({ // default configurations provided by TanStack table
-        data: data ?? [], // if data comes from backend, use that to populate table else simply pass empty array to the table. 
+        data: data ?? emptyArray, // if data comes from backend, use that to populate table else simply pass empty array to the table. 
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
@@ -70,7 +72,7 @@ const CustomTable = (props) => {
                                     backgroundColor: "#DEE2E6",
                                     borderRadius: 2,
                                 },
-                                maxHeight: 160,
+                                height: (numOfTables === 1 || numOfTables === 2) ? "calc(88.5vh - 125px)" : "calc(49vh - 125px)",
                             }}
                         >
                             <Table stickyHeader aria-label="sticky table">
@@ -118,7 +120,7 @@ const CustomTable = (props) => {
 
                             {/* In case API throws an error or no API returns no data in the response, show no content found UI */}
                             {(isError || table.getRowModel().rows.length === 0) && (
-                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "40px" }}>
+                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "calc(100% - 40px)"}}>
                                     <Box sx={{ textAlign: "center" }}>
                                         <Box>
                                             <NoContentFound />

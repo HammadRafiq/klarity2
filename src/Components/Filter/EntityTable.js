@@ -9,7 +9,7 @@ import { addDetectedFilter } from "../../Pages/Filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 
-const EntityTable = ({ libraryId, item, className }) => {
+const EntityTable = ({ libraryId, item, numOfTables }) => {
     const dispatch = useDispatch()
     const detectedFilters = useSelector(state => state.filter.detectedFilters) // Get the detectedFilters array from the store so that it can be used in the payload while calling "dashboard/getTableData" API
 
@@ -73,16 +73,12 @@ const EntityTable = ({ libraryId, item, className }) => {
         isError,
         isSuccess,
         isLoading,
-        // refetch,
         limit,
-        filter,
         currentPage,
-        setFilter,
         setCurrentPage,
-        setLimit,
-        setSortBy,
-        setSort,
     } = useTableData(querydata) // Calling the useTableData hook here that deals with the pagination of the table i.e what should happen when prev/next icon (indicating next/previous page of the table) is clicked
+
+    console.log("entity table renders", item)
 
 
     return (
@@ -96,9 +92,8 @@ const EntityTable = ({ libraryId, item, className }) => {
             count={Math.ceil(data?.data?.recordsTotal / limit)}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            setSortBy={setSortBy}
-            setSort={setSort}
             limit={limit}
+            numOfTables={numOfTables}
         />
     );
 };

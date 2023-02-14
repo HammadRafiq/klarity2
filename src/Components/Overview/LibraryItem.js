@@ -12,6 +12,9 @@ import { ClickableTooltip } from '../Common/ClickableTooltip'
 import CustomMenu from '../Common/CustomMenu'
 import CommonDeleteModal from '../Common/CommonDeleteModal'
 import ManageLibraryModal from './ManageLibraryModal'
+import { useQueryClient } from '@tanstack/react-query'
+import { updateFilteredData, updateSelectedDashboard } from '../../Pages/Filter/filterSlice'
+import { useDispatch } from 'react-redux'
 
 // Mapping the API data with the titles shown in the UI.
 const dataMap = {
@@ -32,8 +35,15 @@ const LibraryItem = ({ obj }) => {
     const [settingsVisible, setSettingsVisible] = useState(false)
     const [deleteVisible, setDeleteVisible] = useState(false)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const queryClient = useQueryClient()
 
     const libraryHandler = () => {
+        queryClient.removeQueries({ queryKey: ['dashboardTemplates'] }) // Delete the existing cached data
+        dispatch(updateSelectedDashboard("")) // Preserve selected dashboard id to show again when user comes back to dashboard index screen
+        dispatch(updateFilteredData([]))
+        localStorage.setItem("libraryName", obj.displayName)
         navigate(`/filter/${obj.indexname}`) // When clicked on a specific library, navigate to the Filter screen with libraryId in the URL
     }
 
@@ -84,7 +94,7 @@ const LibraryItem = ({ obj }) => {
                 <Grid container columnSpacing={2}>
                     {Object.entries(obj)?.map((item, index) => { // Applying the loop on the individual object of the array to populate all the key/value pairs in the grid
                         return dataMap[item[0]] && (
-                            <Grid item xs={6}>
+                            <Grid item xs={6} key={index}>
                                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <Typography variant='body2'>
                                         {dataMap[item[0]]}

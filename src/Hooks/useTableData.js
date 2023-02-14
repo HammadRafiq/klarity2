@@ -25,6 +25,8 @@ export const useTableData = ({ apiFunc, key }) => {
   const { data, isError, isSuccess, isLoading, refetch } = useQuery({
     queryKey: [`${key}`, currentPage, limit, filter, sortBy, sort, detectedFilters],
     queryFn: () => apiFunc(payload),
+    keepPreviousData: true,
+    staleTime: Infinity
   });
 
   // Return the stateful data to be used in the individual components of the multiple tables
