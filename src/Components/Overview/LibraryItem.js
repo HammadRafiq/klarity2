@@ -15,6 +15,9 @@ import ManageLibraryModal from './ManageLibraryModal'
 import { useQueryClient } from '@tanstack/react-query'
 import { updateFilteredData, updateSelectedDashboard } from '../../Pages/Filter/filterSlice'
 import { useDispatch } from 'react-redux'
+import { apiGetRequest } from 'Helpers'
+import { useSnackbar } from "notistack"
+import { BaseURL } from 'Config'
 
 // Mapping the API data with the titles shown in the UI.
 const dataMap = {
@@ -31,18 +34,20 @@ const dataMap = {
     problems: "Problems"
 }
 
-const LibraryItem = ({ obj }) => {
+const LibraryItem = ({ obj, refetch }) => {
+    const [loading, setLoading] = useState(false)
     const [settingsVisible, setSettingsVisible] = useState(false)
     const [deleteVisible, setDeleteVisible] = useState(false)
+
+    const { enqueueSnackbar } = useSnackbar()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     const queryClient = useQueryClient()
 
     const libraryHandler = () => {
         queryClient.removeQueries({ queryKey: ['dashboardTemplates'] }) // Delete the existing cached data
-        dispatch(updateSelectedDashboard("")) // Preserve selected dashboard id to show again when user comes back to dashboard index screen
-        dispatch(updateFilteredData([]))
+        dispatch(updateSelectedDashboard("")) // Reset to initial state
+        dispatch(updateFilteredData([])) // Reset to initial state
         localStorage.setItem("libraryName", obj.displayName)
         navigate(`/filter/${obj.indexname}`) // When clicked on a specific library, navigate to the Filter screen with libraryId in the URL
     }
@@ -70,6 +75,21 @@ const LibraryItem = ({ obj }) => {
         ]
 
     ), [])
+
+    const deleteLibraryHandler = async () => {
+        return apiGetRequest(`${BaseURL}/rest/api/removeLibrary`, { indexname: obj.indexname })
+            .then(res => {
+                enqueueSnackbar("Library deleted successfully", {
+                    variant: "success"
+                })
+                refetch()
+            })
+            .catch(error => {
+                enqueueSnackbar(error?.message || "Something went wrong", {
+                    variant: "success"
+                })
+            })
+    }
 
 
     return (
@@ -111,10 +131,14 @@ const LibraryItem = ({ obj }) => {
                 <CommonDeleteModal
                     open={deleteVisible}
                     setOpen={setDeleteVisible}
+                    onDelete={deleteLibraryHandler}
                 />
                 <ManageLibraryModal
                     open={settingsVisible}
                     setOpen={setSettingsVisible}
+                    data={obj}
+                    refetch={refetch}
+                    isEdit={true}
                 />
             </Paper>
         </Grid>

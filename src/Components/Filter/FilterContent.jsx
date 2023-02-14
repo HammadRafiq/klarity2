@@ -12,13 +12,7 @@ import EntityTable from 'Components/Filter/EntityTable'
 import { apiGetRequest } from 'Helpers'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { useAuthContext } from 'Context/AuthContext'
 import { endpoints } from 'Config/endpoints'
-import {
-    flexRender,
-    getCoreRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
 
 
 const FilterContent = () => {
@@ -41,7 +35,7 @@ const FilterContent = () => {
         <Box sx={{ padding: "30px 40px", backgroundColor: "background.paper" }}>
             <Grid container spacing={2}>
                 {filteredData?.map((item, index) => ( // UI is same for all the tables on filter screen so here we are applying a loop on the HTML code below so that we don't have to write the same HTML code 6 times. This is the power of React Javascript.
-                    <Grid item xs={filteredData.length === 1 ? 12 : (filteredData.length === 2 || filteredData.length === 4) ? 6 : 4} key={index}>
+                    <Grid item xs={filteredData.length === 1 ? 12 : (filteredData.length === 2 || filteredData.length === 3 || filteredData.length === 4) ? 6 : 4} key={index}>
                         <Box sx={{ backgroundColor: "background.default", borderRadius: "4px"}}>
                             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 12px", borderBottom: "1px solid #DEE2E6" }}>
                                 <Box sx={{ display: "flex", alignItems: "center" }}>

@@ -8,6 +8,7 @@ import { apiGetRequest } from '../../Helpers'
 import { endpoints } from '../../Config/endpoints'
 import { useQuery } from '@tanstack/react-query'
 import CommonDeleteModal from '../../Components/Common/CommonDeleteModal'
+import ManageLibraryModal from 'Components/Overview/ManageLibraryModal'
 
 // In order for Grid Spacing to work:
 // 1. dont use sx on both container and item grid
@@ -17,6 +18,7 @@ import CommonDeleteModal from '../../Components/Common/CommonDeleteModal'
 
 const Overview = () => {
   const [search, setSearch] = useState("")
+  const [open, setOpen] = useState(false)
 
   // START: REACT QUERY //
   const getLibraryData = async ({ queryKey }) => {
@@ -27,7 +29,7 @@ const Overview = () => {
     }
     return apiGetRequest(endpoints.libraryOverview, data, null)
   }
-  const { data, isLoading, error } = useQuery(["overview", search], getLibraryData) // Call the "libraryOverview" API when user visits the Overview screen
+  const { data, isLoading, error, refetch } = useQuery(["overview", search], getLibraryData) // Call the "libraryOverview" API when user visits the Overview screen
   //END: REACT QUERY //
 
   const handleSearch = (e) => { // Deals with the searching of the libraries. To be implemented.
@@ -129,8 +131,12 @@ const Overview = () => {
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={3}> {/* First item of the grid will always be the box used to create new library */}
-            <Box height="100%" sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px", minHeight: "198px" }}>
-              <label style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
+            <Box
+              height="100%"
+              sx={{ border: "1px dashed rgba(123, 135, 148, 0.3)", backgroundColor: "#EEF2F7", borderRadius: "4px", minHeight: "198px", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}
+              onClick={() => setOpen(true)}
+            >
+              {/* <label style={{ height: "100%", display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }}>
                 <input
                   style={{ display: "none" }}
                   type="file"
@@ -140,15 +146,27 @@ const Overview = () => {
                 <Box>
                   <UploadIcon />
                 </Box>
-              </label>
+              </label> */}
+              <Box>
+                <UploadIcon />
+              </Box>
             </Box>
-          </Grid>          
+          </Grid>
           {data?.data?.values?.map((obj, index) => (
-            <LibraryItem key={index} obj={obj} />
+            <LibraryItem
+              key={index}
+              obj={obj}
+              refetch={refetch}
+            />
           ))
           }
         </Grid>
       </Box>
+      <ManageLibraryModal
+        open={open}
+        setOpen={setOpen}
+        refetch={refetch}
+      />
     </Box>
   )
 }

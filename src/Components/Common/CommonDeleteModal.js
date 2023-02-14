@@ -18,23 +18,32 @@ const style = {
 
 const CommonDeleteModal = ({
     open = false,
-    setOpen
+    setOpen,
+    onDelete = () => null
 }) => {
-
+    const [loading, setLoading] = useState(false)
     const handleCancel = (e) => {
-        e.stopPropagation()
+        e?.stopPropagation()
         setOpen(false)
     }
+
+    const onSubmit = async (values) => {
+        setLoading(true)
+        await onDelete()
+        handleCancel()
+        setLoading(false)
+    }
+
 
     return (
         <Box>
             <Modal
                 open={open}
-                // onClose={handleCancel}
+                onClose={handleCancel}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className='primary-modal' onClick={e => e.stopPropagation()}>
+                <Box className='primary-modal' onClick={e => e.stopPropagation()} sx={{ padding: "20px" }}>
                     <Typography variant='h2'>
                         Delete
                     </Typography>
@@ -47,7 +56,7 @@ const CommonDeleteModal = ({
                         initialValues={{
                             show: true
                         }}
-                        onSubmit={values => console.log("values: ", values)}
+                        onSubmit={onSubmit}
                     >
                         {() => (
                             <Form>
@@ -79,6 +88,7 @@ const CommonDeleteModal = ({
                                         backgroundColor='#E55E5E'
                                         borderColor='#E55E5E'
                                         color='common.white'
+                                        loading={loading}
                                     />
                                 </Box>
                             </Form>
