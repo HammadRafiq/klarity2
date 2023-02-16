@@ -14,7 +14,14 @@ import { useAuthContext } from '../../Context/AuthContext'
 import axios from 'axios'
 import AuthLayout from '../../Layout/AuthLayout'
 import { BaseURL } from '../../Config'
+import * as Yup from "yup"
 
+const validationSchema = Yup.object().shape({
+    username: Yup.string()
+        .required('Please enter the username'),
+    password: Yup.string()
+        .required('Please enter the password'),
+});
 
 const Login = () => {
 
@@ -60,6 +67,7 @@ const Login = () => {
                     password: ""
                 }}
                 onSubmit={onFinish} // Refer to documentation > 1.1
+                validationSchema={validationSchema}
             >
                 {() => (
                     <Form>
@@ -91,7 +99,7 @@ const Login = () => {
                             </Grid>
                         </Grid>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "25px" }} >
-                            <Typography variant='body3' sx={{ color: "secondary.main" }}>
+                            <Typography variant='body3' sx={{ color: "secondary.main", cursor: "pointer" }} onClick={() => navigate("/password-reset")}>
                                 <u>Forgot password?</u>
                             </Typography>
                             <CustomButton

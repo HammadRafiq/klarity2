@@ -2,11 +2,10 @@ import { Box, Menu, MenuItem, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { ReactComponent as VerticalDots } from '../../Assets/vertical-dots.svg'
 
-const CustomMenu = ({
+const CustomMenu1 = ({
     renderUI = <VerticalDots />,
     options = [],
-    padding = "5px 13px",
-    styleObj = {}
+    padding = "2px 8px"
 }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -18,17 +17,13 @@ const CustomMenu = ({
 
 
     return (
-        <Box sx={{ overflow: "visible" }}>
+        <Box sx={{ overflow: "visible"}}>
             <Box
                 onClick={event => {
                     event.stopPropagation()
                     setAnchorEl(event.currentTarget)
                 }}
-                sx={{
-                    padding: padding,
-                    cursor: "pointer",
-                    ...styleObj
-                }}
+                sx={{ padding: padding, cursor: "pointer"}}
             >
                 {renderUI}
             </Box>
@@ -47,11 +42,8 @@ const CustomMenu = ({
                         handleClose(e)
                         item.onClickHandler()
                     }}>
-                        <Box style={{ display: "flex", alignItems: "center", gap: "7px" }}>
-                            {item.icon}
-                            <Typography variant='body2'>
-                                {item.title}
-                            </Typography>
+                        <Box>
+                            {item.children}
                         </Box>
                     </MenuItem>
                 ))}
@@ -60,4 +52,4 @@ const CustomMenu = ({
     )
 }
 
-export default CustomMenu
+export default CustomMenu1

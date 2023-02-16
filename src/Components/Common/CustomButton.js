@@ -28,6 +28,7 @@ const CustomButton = ({
     svgStyle = {},
     disabled = false,
     loading = false,
+    loaderColor = "#fff",
     onClick = () => null,
     ...rest
 }) => {
@@ -50,13 +51,17 @@ const CustomButton = ({
                     borderColor: borderColor,
                     minWidth: minWidth,
                     textTransform: textTransform,
+                    boxShadow: "none",
                     ...styleObj
                 },
                 "&:hover": {
                     // backgroundColor: hoverBackground
                 },
                 "&.Mui-disabled": disabledStyle,
-                "& svg": svgStyle
+                "& svg": svgStyle,
+                "& .MuiLoadingButton-loadingIndicator": {
+                    color: loaderColor
+                }
             }}
             {...rest}
         >

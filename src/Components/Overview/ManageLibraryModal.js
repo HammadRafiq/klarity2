@@ -50,8 +50,8 @@ const ManageLibraryModal = ({ open = false, setOpen, data, refetch, isEdit }) =>
                     <CustomTabs
                         mapperObjProp={tabdata}
                         justifyContentTab="left"
-                        paddingTab="0px 20px"
-                        paddingPanel="20px 22px"
+                        paddingTab="0px 25px"
+                        paddingPanel="20px 25px"
                         tabsWidth={"100%"}
                         tabsShadow={0}
                         tabsBorderRadius={0}

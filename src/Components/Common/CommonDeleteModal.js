@@ -43,7 +43,7 @@ const CommonDeleteModal = ({
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className='primary-modal' onClick={e => e.stopPropagation()} sx={{ padding: "20px" }}>
+                <Box className='primary-modal' onClick={e => e.stopPropagation()} sx={{ padding: "20px", width: "500px" }}>
                     <Typography variant='h2'>
                         Delete
                     </Typography>

@@ -7,5 +7,6 @@ export const endpoints = {
     loadSearchResults: `documentView/loadSearchResults`,
     forgotPassword: `forgotPassword`,
     dashboardTemplates: "loadDashboardTemplates",
-    getLibraryEntityTypes: "dashboard/getLibraryEntityTypes"
+    getLibraryEntityTypes: "dashboard/getLibraryEntityTypes",
+    forgotPassword: "forgotPassword"
 };

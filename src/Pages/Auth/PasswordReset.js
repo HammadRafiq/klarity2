@@ -10,6 +10,8 @@ import { useSnackbar } from 'notistack'
 import axios from 'axios'
 import AuthLayout from '../../Layout/AuthLayout'
 import { BaseURL } from '../../Config'
+import { apiPostRequest } from 'Helpers'
+import { endpoints } from 'Config/endpoints'
 
 const PasswordReset = () => {
 
@@ -24,14 +26,9 @@ const PasswordReset = () => {
      */
     const onFinish = (input) => {
         setLoading(true)
-        axios({
-            method: 'post',
-            url: `${BaseURL}/rest/api/forgotPassword`,
-            data: input,
-        })
+        apiPostRequest(endpoints.forgotPassword, input)
             .then(response => {
-                // form.resetFields()
-                setShowMsg(prev => !prev)
+                setShowMsg(true)
             })
             .catch(error => {
                 enqueueSnackbar(error?.message || "Something went wrong", {

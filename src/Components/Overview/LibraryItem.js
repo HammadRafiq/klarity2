@@ -108,7 +108,15 @@ const LibraryItem = ({ obj, refetch }) => {
                         </Box>
                     </Box>
                     <Box>
-                        <CustomMenu options={options} />
+                        <CustomMenu
+                            options={options}
+                            styleObj={{
+                                "&:hover": {
+                                    borderRadius: "50%",
+                                    background: "#f5f5f5",
+                                    // transition: "all 0.3s"
+                                }
+                        }} />
                     </Box>
                 </Box>
                 <Grid container columnSpacing={2}>
